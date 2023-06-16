@@ -1,0 +1,76 @@
+{
+  "logic_types": {
+    "!generated_0_22_rJHRULPB_2": {
+      "type": "Stream",
+      "value": {
+        "stream_type": "_H6Zb___stream_type_generated_0_22_rJHRULPB_2",
+        "dimension": 2,
+        "user_type": "_alGC___user_type_generated_0_22_rJHRULPB_2",
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+        "keep": false
+      }
+    },
+    "_H6Zb___stream_type_generated_0_22_rJHRULPB_2": {
+      "type": "Group",
+      "value": {
+        "elements": {
+          "b": {
+            "type": "Ref",
+            "value": "logic_group_generated_87_182_tzUD2PAF_1__b"
+          },
+          "g": {
+            "type": "Ref",
+            "value": "logic_group_generated_87_182_tzUD2PAF_1__g"
+          },
+          "r": {
+            "type": "Ref",
+            "value": "logic_group_generated_87_182_tzUD2PAF_1__r"
+          }
+        }
+      }
+    },
+    "_alGC___user_type_generated_0_22_rJHRULPB_2": {
+      "type": "Null"
+    },
+    "logic_group_generated_87_182_tzUD2PAF_1__b": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_6_kcOh55Jd_5"
+    },
+    "logic_group_generated_87_182_tzUD2PAF_1__g": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_6_OwreDX2g_7"
+    },
+    "logic_group_generated_87_182_tzUD2PAF_1__r": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_6_OwreDX2g_7"
+    },
+    "package_pack0__generated_0_6_OwreDX2g_7": {
+      "type": "Bit",
+      "value": 8
+    },
+    "package_pack0__generated_0_6_kcOh55Jd_5": {
+      "type": "Bit",
+      "value": 8
+    },
+    "package_pack1__generated_0_22_zlK6dNC0_3": {
+      "type": "Stream",
+      "value": {
+        "stream_type": "_H6Zb___stream_type_generated_0_22_rJHRULPB_2",
+        "dimension": 2,
+        "user_type": "_alGC___user_type_generated_0_22_rJHRULPB_2",
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+        "keep": false
+      }
+    },
+    "package_pack1__stream_rgb": {
+      "type": "Ref",
+      "value": "package_pack1__generated_0_22_zlK6dNC0_3"
+    }
+  }
+}
