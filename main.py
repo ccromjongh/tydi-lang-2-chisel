@@ -1,5 +1,7 @@
 from enum import Enum
 from json import loads, dumps
+from collections import OrderedDict
+
 from jinja2 import Environment, PackageLoader, select_autoescape, FileSystemLoader
 env = Environment(
     loader=FileSystemLoader('templates'),
@@ -37,6 +39,11 @@ def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
         item['package'] = name_parts[0]
         item['name'] = name_parts[1]
         item['type'] = item_type
+        if item_type == LogicType.ref:
+            item['value'] = data[item['value']]['name']
+        if item_type == LogicType.stream:
+            item['value']['stream_type'] = data[item['value']['stream_type']]['name']
+            item['value']['user_type'] = data[item['value']['user_type']]['name']
         l.append(item)
         item['included'] = True
     return l
@@ -48,7 +55,7 @@ if __name__ == '__main__':
     to_solve = list(logic_types.keys())[-1]
     processed_data = pre_process(logic_types, to_solve, [])
     template = env.get_template('output.scala')
-    to_template = {'logic_types': processed_data}
+    to_template = {'logic_types': OrderedDict((item['name'], item)for item in processed_data)}
     output = template.render(to_template)
     print(output)
     pass
