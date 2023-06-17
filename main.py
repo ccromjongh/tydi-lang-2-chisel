@@ -37,7 +37,7 @@ def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
     if not item.get('included', False):
         name_parts = solve.split('__')
         item['package'] = name_parts[0]
-        item['name'] = name_parts[1]
+        item['name'] = name_parts[1].lstrip('_')
         item['type'] = item_type
         if item_type == LogicType.ref:
             item['value'] = data[item['value']]['name']
@@ -58,4 +58,6 @@ if __name__ == '__main__':
     to_template = {'logic_types': OrderedDict((item['name'], item)for item in processed_data)}
     output = template.render(to_template)
     print(output)
+    with open('output.scala', 'w') as f:
+        f.write(output)
     pass
