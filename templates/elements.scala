@@ -8,6 +8,13 @@ class {{type.name | capitalize}} extends Group {
 {%- endfor %}
 }
 {%- endmacro %}
-{% macro stream(type, types) -%}
-class {{type.name | capitalize}} extends PhysicalStreamDetailed(e=new {{type.value.stream_type | capitalize}}, n={{type.value.throughput | int}}, d={{type.value.dimension}}, c={{type.value.complexity}}, r={{'true' if type.value.direction=='Reverse' else 'false'}}, u=Null())
+{% macro stream(name, type, types) -%}
+class {{ name | capitalize }} extends PhysicalStreamDetailed(e=new {{type.value.stream_type | capitalize}}, n={{type.value.throughput | int}}, d={{type.value.dimension}}, c={{type.value.complexity}}, r={{'true' if type.value.direction=='Reverse' else 'false'}}, u=Null())
+{%- endmacro %}
+{% macro stream_ref(type, types) -%}
+{{ stream(type.name, types[type.value], types) }}
+
+object {{ type.name | capitalize }} {
+    def apply(): {{ type.name | capitalize }} = new {{ type.name | capitalize }}()
+}
 {%- endmacro %}
