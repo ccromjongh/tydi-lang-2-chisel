@@ -10,4 +10,12 @@ import chisel3._
 {% elif type.type.name == 'ref' and logic_types[type.value].type.name == 'stream' %}
 {{ els.stream_ref(type, logic_types) }}
 {% endif -%}
-{% endfor -%}
+{% endfor %}
+
+// Usage example
+class MyModule extends TydiModule {
+{%- for stream_name in streams %}
+  val {{ stream_name }}: {{ stream_name | capitalize }} = {{ stream_name | capitalize }}()
+  val {{ stream_name }}IO: PhysicalStream = {{ stream_name }}.toPhysical
+{%- endfor %}
+}

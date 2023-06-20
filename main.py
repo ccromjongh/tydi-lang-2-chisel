@@ -36,7 +36,13 @@ def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
         l = pre_process(data, item['value']['user_type'], l)
     if not item.get('included', False):
         name_parts = solve.split('__')
-        item['package'] = name_parts[0]
+        package = name_parts[0]
+        if package.startswith('package_'):
+            package = package[8:]
+            item['defined'] = True
+        else:
+            item['defined'] = False
+        item['package'] = package
         item['name'] = name_parts[1].lstrip('_')
         item['type'] = item_type
         if item_type == LogicType.ref:
@@ -55,7 +61,7 @@ if __name__ == '__main__':
     to_solve = list(logic_types.keys())[-1]
     processed_data = pre_process(logic_types, to_solve, [])
     template = env.get_template('output.scala')
-    to_template = {'logic_types': OrderedDict((item['name'], item)for item in processed_data)}
+    to_template = {'logic_types': OrderedDict((item['name'], item)for item in processed_data), 'streams': [processed_data[-1]['name']]}
     output = template.render(to_template)
     print(output)
     with open('output.scala', 'w') as f:
