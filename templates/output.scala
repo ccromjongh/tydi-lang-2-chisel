@@ -28,7 +28,7 @@ object MyTypes {
 {% endif -%}
 {% endfor %}
 
-{% for streamlet in streamlets.values() -%}
+{%- for streamlet in streamlets.values() %}
 class {{ streamlet.name | capitalize }} extends TydiModule {
   {%- for port in streamlet.ports.values() %}
     /** Stream of [[{{ port.name }}]] with {{ port.direction.name }} direction. */
@@ -39,10 +39,18 @@ class {{ streamlet.name | capitalize }} extends TydiModule {
 }
 {% endfor %}
 
-// Usage example
-class MyModule extends TydiModule {
-{%- for stream_name in streams %}
-  val {{ stream_name }}: {{ stream_name | capitalize }} = {{ stream_name | capitalize }}()
-  val {{ stream_name }}IO: PhysicalStream = {{ stream_name }}.toPhysical
-{%- endfor %}
+{%- for impl in implementations.values() %}
+{% if impl.defined -%}
+/** Implementation, defined in {{ impl.package }} */
+{%- endif %}
+class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capitalize }} {
+    // Modules
+  {%- for inst in impl.implementation_instances.values() %}
+    val {{ inst.name }} = Module(new {{ inst.impl.name | capitalize }})
+  {%- endfor %}
+    // Connections
+  {%- for con in impl.nets.values() %}
+    {% if con.sink_port_owner_name != "self" %}{{ con.sink_owner.name }}.{% endif %}{{ con.sink_port_name }} := {% if con.src_port_owner_name != "self" %}{{ con.src_owner.name }}.{% endif %}{{ con.src_port_name }}
+  {%- endfor %}
 }
+{% endfor %}

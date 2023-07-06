@@ -116,6 +116,21 @@ def new_process(data: dict) -> dict:
             item['defined'] = False
         item['package'] = package
         item['name'] = name_parts[1].lstrip('_')
+        item['derived_streamlet'] = streamlets[item['derived_streamlet']]
+        # Name ports and substitute references
+        for name, instance in item['implementation_instances'].items():
+            item['implementation_instances'][name] = {
+                "name": name.split("__")[1],
+                "impl": implementations[instance['derived_implementation']]
+            }
+
+        # Name ports and substitute references
+        for name, connection in item['nets'].items():
+            connection['src_owner'] = item if connection['src_port_owner_name'] == "self" else item['implementation_instances'][connection['src_port_owner_name']]
+            connection['sink_owner'] = item if connection['sink_port_owner_name'] == "self" else item['implementation_instances'][connection['sink_port_owner_name']]
+            connection['src_port_name'] = connection['src_port_name'].split("__")[1]
+            connection['sink_port_name'] = connection['sink_port_name'].split("__")[1]
+
     return data
 
 
