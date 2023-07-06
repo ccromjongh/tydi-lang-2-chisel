@@ -23,6 +23,11 @@ class LogicType(Enum):
     ref = 'Ref'
 
 
+class Direction(Enum):
+    input = 'In'
+    output = 'Out'
+
+
 def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
     item = data.get(solve)
     item_type = LogicType(item['type'])
@@ -59,6 +64,9 @@ def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
 def new_process(data: dict) -> dict:
     doubles_check = {}
     logic_types = data.get('logic_types', {})
+    streamlets = data.get('streamlets', {})
+    implementations = data.get('implementations', {})
+
     for (key, item) in logic_types.items():
         item['type'] = LogicType(item['type'])
         name_parts = key.split('__')
@@ -88,18 +96,17 @@ def new_process(data: dict) -> dict:
             item['value']['stream_type'] = logic_types[item['value']['stream_type']['value']]
             item['value']['user_type'] = logic_types[item['value']['user_type']['value']]
 
-    for (key, item) in data.get('stream_size', {}).items():
+    for (key, item) in streamlets.items():
         name_parts = key.split('__')
-        package = name_parts[0]
-        if package.startswith('package_'):
-            package = package[8:]
-            item['defined'] = True
-        else:
-            item['defined'] = False
-        item['package'] = package
-        item['name'] = name_parts[1].lstrip('_')
+        item['name'] = name_parts[0]
 
-    for (key, item) in data.get('implementations', {}).items():
+        # Name ports and substitute references
+        for name, port in item['ports'].items():
+            port['logic_type'] = logic_types[port['logic_type']['value']]
+            port['name'] = name.split('__')[1]
+            port['direction'] = Direction(port['direction'])
+
+    for (key, item) in implementations.items():
         name_parts = key.split('__')
         package = name_parts[0]
         if package.startswith('package_'):
@@ -120,6 +127,7 @@ if __name__ == '__main__':
     template = env.get_template('output.scala')
     # to_template = {'logic_types': OrderedDict((item['name'], item)for item in processed_data), 'streams': [processed_data[-1]['name']]}
     env.globals['LogicType'] = LogicType
+    env.globals['Direction'] = Direction
     to_template = new_process(dict(tydi_data))
     output = template.render(to_template)
     print(output)

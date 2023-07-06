@@ -28,6 +28,17 @@ object MyTypes {
 {% endif -%}
 {% endfor %}
 
+{% for streamlet in streamlets.values() -%}
+class {{ streamlet.name | capitalize }} extends TydiModule {
+  {%- for port in streamlet.ports.values() %}
+    /** Stream of [[{{ port.name }}]] with {{ port.direction.name }} direction. */
+    val {{ port.name }}_stream = new {{ port.logic_type.name | capitalize }}{% if port.direction == Direction.input %}.flip{% endif %}
+    /** IO of [[{{ port.name }}_stream]] with {{ port.direction.name }} direction. */
+    val {{ port.name }} = {{ port.name }}_stream.toPhysical
+  {%- endfor %}
+}
+{% endfor %}
+
 // Usage example
 class MyModule extends TydiModule {
 {%- for stream_name in streams %}
