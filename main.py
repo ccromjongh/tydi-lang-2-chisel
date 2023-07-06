@@ -56,13 +56,50 @@ def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
     return l
 
 
+def new_process(data: dict) -> dict:
+    for (key, item) in data.get('logic_types', {}).items():
+        item['type'] = LogicType(item['type'])
+        name_parts = key.split('__')
+        package = name_parts[0]
+        if package.startswith('package_'):
+            package = package[8:]
+            item['defined'] = True
+        else:
+            item['defined'] = False
+        item['package'] = package
+        item['name'] = name_parts[1].lstrip('_') if len(name_parts) > 1 else name_parts[0]
+    for (key, item) in data.get('stream_size', {}).items():
+        name_parts = key.split('__')
+        package = name_parts[0]
+        if package.startswith('package_'):
+            package = package[8:]
+            item['defined'] = True
+        else:
+            item['defined'] = False
+        item['package'] = package
+        item['name'] = name_parts[1].lstrip('_')
+    for (key, item) in data.get('implementations', {}).items():
+        name_parts = key.split('__')
+        package = name_parts[0]
+        if package.startswith('package_'):
+            package = package[8:]
+            item['defined'] = True
+        else:
+            item['defined'] = False
+        item['package'] = package
+        item['name'] = name_parts[1].lstrip('_')
+    return data
+
+
 if __name__ == '__main__':
     tydi_data = get_json()
-    logic_types = tydi_data['logic_types']
-    to_solve = list(logic_types.keys())[-1]
-    processed_data = pre_process(logic_types, to_solve, [])
+    # logic_types = tydi_data['logic_types']
+    # to_solve = list(logic_types.keys())[-1]
+    # processed_data = pre_process(logic_types, to_solve, [])
     template = env.get_template('output.scala')
-    to_template = {'logic_types': OrderedDict((item['name'], item)for item in processed_data), 'streams': [processed_data[-1]['name']]}
+    # to_template = {'logic_types': OrderedDict((item['name'], item)for item in processed_data), 'streams': [processed_data[-1]['name']]}
+    env.globals['LogicType'] = LogicType
+    to_template = new_process(dict(tydi_data))
     output = template.render(to_template)
     print(output)
     with open('output.scala', 'w') as f:
