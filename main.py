@@ -18,6 +18,7 @@ class LogicType(Enum):
     stream = 'Stream'
     bit = 'Bit'
     group = 'Group'
+    union = 'Union'
     null = 'Null'
     ref = 'Ref'
 
@@ -28,7 +29,7 @@ def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
     if item_type == LogicType.ref:
         refers_to = item['value']
         l = pre_process(data, refers_to, l)
-    elif item_type == LogicType.group:
+    elif item_type == LogicType.group or item_type == LogicType.union:
         for el in item['value']['elements'].values():
             l = pre_process(data, el['value'], l)
     elif item_type == LogicType.stream:
