@@ -57,7 +57,8 @@ def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
 
 
 def new_process(data: dict) -> dict:
-    for (key, item) in data.get('logic_types', {}).items():
+    logic_types = data.get('logic_types', {})
+    for (key, item) in logic_types.items():
         item['type'] = LogicType(item['type'])
         name_parts = key.split('__')
         package = name_parts[0]
@@ -68,6 +69,12 @@ def new_process(data: dict) -> dict:
             item['defined'] = False
         item['package'] = package
         item['name'] = name_parts[1].lstrip('_') if len(name_parts) > 1 else name_parts[0]
+
+        if item['type'] in [LogicType.group, LogicType.union]:
+            # Replace (double) reference for group and union elements by element, so we can work with the name and type.
+            item['value']['elements'] = {name: logic_types[logic_types[el['value']]['value']]
+                                         for name, el in item['value']['elements'].items()}
+
     for (key, item) in data.get('stream_size', {}).items():
         name_parts = key.split('__')
         package = name_parts[0]
@@ -78,6 +85,7 @@ def new_process(data: dict) -> dict:
             item['defined'] = False
         item['package'] = package
         item['name'] = name_parts[1].lstrip('_')
+
     for (key, item) in data.get('implementations', {}).items():
         name_parts = key.split('__')
         package = name_parts[0]

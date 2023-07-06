@@ -5,6 +5,9 @@ import chisel3._
 object MyTypes {
 {%- for type in logic_types.values() %}
 {%- if type.type == LogicType.bit %}
+    {%- if type.defined %}
+    /** Bit({{type.value}}) type, defined in {{ type.package }} */
+    {%- endif %}
     val {{ type.name }} = UInt({{type.value}}.W)
     assert(this.{{ type.name }}.getWidth == {{type.value}})
 {% endif -%}
@@ -16,6 +19,8 @@ object MyTypes {
 {{ els.bit(type) }}
 {% elif type.type == LogicType.group %}
 {{ els.group(type, logic_types) }}
+{% elif type.type == LogicType.union %}
+{{ els.union(type, logic_types) }}
 {% elif type.type == LogicType.stream %}
 {{ els.stream(type.name, type, logic_types) }}
 {% elif type.type == LogicType.ref and logic_types[type.value].type == LogicType.stream %}

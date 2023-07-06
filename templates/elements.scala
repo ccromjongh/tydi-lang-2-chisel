@@ -10,7 +10,25 @@ class {{type.name | capitalize}} extends BitsEl({{type.value}}.W)
 {%- endif %}
 class {{type.name | capitalize}} extends Group {
 {%- for name, el in type.value.elements.items() %}
-    val {{ name }} = new {{ types[el.value.split('__')[1]].value | capitalize }}
+  {%- if el.type == LogicType.bit %}
+    val {{ name }} = MyTypes.{{ el.name }}
+  {%- else %}
+    val {{ name }} = new {{ el.name | capitalize }}
+  {%- endif %}
+{%- endfor %}
+}
+{%- endmacro %}
+{% macro union(type, types) -%}
+{% if type.defined -%}
+/** Union element, defined in {{ type.package }} */
+{%- endif %}
+class {{type.name | capitalize}} extends Union({{ type.value.elements.keys() | length }}) {
+{%- for name, el in type.value.elements.items() %}
+  {%- if el.type == LogicType.bit %}
+    val {{ name }} = MyTypes.{{ el.name }}
+  {%- else %}
+    val {{ name }} = new {{ el.name | capitalize }}
+  {%- endif %}
 {%- endfor %}
 }
 {%- endmacro %}
