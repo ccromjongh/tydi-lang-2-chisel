@@ -77,7 +77,10 @@ def new_process(data: dict) -> dict:
         else:
             item['defined'] = False
         item['package'] = package
-        item['name'] = name_parts[1].lstrip('_') if len(name_parts) > 1 else name_parts[0]
+        if len(name_parts) == 1:
+            item['unique'] = False
+            continue
+        item['name'] = name_parts[1].lstrip('_')
 
         check_name = f"{item['name']}.{item['type']}"
         if not doubles_check.get(check_name, False):
