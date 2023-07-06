@@ -14,7 +14,7 @@ object MyTypes {
 {% endfor -%}
 }
 
-{% for type in logic_types.values() -%}
+{% for type in logic_types.values() if type.unique -%}
 {% if type.type == LogicType.bit %}
 {{ els.bit(type) }}
 {% elif type.type == LogicType.group %}

@@ -57,6 +57,7 @@ def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
 
 
 def new_process(data: dict) -> dict:
+    doubles_check = {}
     logic_types = data.get('logic_types', {})
     for (key, item) in logic_types.items():
         item['type'] = LogicType(item['type'])
@@ -70,10 +71,22 @@ def new_process(data: dict) -> dict:
         item['package'] = package
         item['name'] = name_parts[1].lstrip('_') if len(name_parts) > 1 else name_parts[0]
 
+        check_name = f"{item['name']}.{item['type']}"
+        if not doubles_check.get(check_name, False):
+            doubles_check[check_name] = True
+            item['unique'] = True
+        else:
+            item['unique'] = False
+
         if item['type'] in [LogicType.group, LogicType.union]:
             # Replace (double) reference for group and union elements by element, so we can work with the name and type.
             item['value']['elements'] = {name: logic_types[logic_types[el['value']]['value']]
                                          for name, el in item['value']['elements'].items()}
+
+        if item['type'] == LogicType.stream:
+            # Replace reference for stream elements, so we can work with the name and type.
+            item['value']['stream_type'] = logic_types[item['value']['stream_type']['value']]
+            item['value']['user_type'] = logic_types[item['value']['user_type']['value']]
 
     for (key, item) in data.get('stream_size', {}).items():
         name_parts = key.split('__')
