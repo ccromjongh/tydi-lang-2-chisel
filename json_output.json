@@ -143,12 +143,12 @@
           "src_port_name": "streamlet_bypass_s__port_in",
           "src_port_owner_name": "self",
           "sink_port_name": "streamlet_bypass_s__port_in",
-          "sink_port_owner_name": "self",
+          "sink_port_owner_name": "implementation_bypass_i__test_inst",
           "document": "ports on self have \"opposite\" direction"
         },
         "implementation_bypass_i__generated_709_744_IZ1kYjzY_12": {
           "src_port_name": "streamlet_bypass_s__port_out",
-          "src_port_owner_name": "self",
+          "src_port_owner_name": "implementation_bypass_i__test_inst",
           "sink_port_name": "streamlet_bypass_s__port_out",
           "sink_port_owner_name": "self",
           "document": null

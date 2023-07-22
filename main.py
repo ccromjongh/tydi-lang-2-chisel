@@ -134,6 +134,10 @@ def new_process(data: dict) -> dict:
     return data
 
 
+def sentence_filter(value: str):
+    return value.strip().capitalize().rstrip('.') + "."
+
+
 if __name__ == '__main__':
     tydi_data = get_json()
     # logic_types = tydi_data['logic_types']
@@ -143,6 +147,7 @@ if __name__ == '__main__':
     # to_template = {'logic_types': OrderedDict((item['name'], item)for item in processed_data), 'streams': [processed_data[-1]['name']]}
     env.globals['LogicType'] = LogicType
     env.globals['Direction'] = Direction
+    env.filters['sentence'] = sentence_filter
     to_template = new_process(dict(tydi_data))
     output = template.render(to_template)
     print(output)

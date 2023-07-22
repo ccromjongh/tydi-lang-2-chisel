@@ -1,12 +1,12 @@
 {% macro documentation_short(item, name) -%}
 /**{% if item.defined %} {{ name }}, defined in {{ item.package }}.{% if item.document %}
- * {% endif %}{% endif %}{% if item.document %}{{ item.document | capitalize }}{% endif %} */
+ * {% endif %}{% endif %}{% if item.document %}{{ item.document | sentence }}{% endif %} */
 {%- endmacro %}
 
 {% macro documentation(item, name) -%}
 /**{% if item.defined %}
  * {{ name }}, defined in {{ item.package }}.{% endif %}{% if item.document %}
- * {{ item.document | capitalize }}{% endif %}
+ * {{ item.document | sentence }}{% endif %}
  */
 {%- endmacro %}
 
