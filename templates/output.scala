@@ -27,9 +27,10 @@ object MyTypes {
 {% endfor %}
 
 {%- for streamlet in streamlets.values() %}
+{{ els.documentation(streamlet, "Streamlet") }}
 class {{ streamlet.name | capitalize }} extends TydiModule {
   {%- for port in streamlet.ports.values() %}
-    /** Stream of [[{{ port.name }}]] with {{ port.direction.name }} direction. */
+    /** Stream of [[{{ port.name }}]] with {{ port.direction.name }} direction.{% if port.document %} {{ port.document }}{% endif %} */
     val {{ port.name }}_stream = new {{ port.logic_type.name | capitalize }}{% if port.direction == Direction.input %}.flip{% endif %}
     /** IO of [[{{ port.name }}_stream]] with {{ port.direction.name }} direction. */
     val {{ port.name }} = {{ port.name }}_stream.toPhysical
@@ -38,16 +39,19 @@ class {{ streamlet.name | capitalize }} extends TydiModule {
 {% endfor %}
 
 {%- for impl in implementations.values() %}
-{% if impl.defined -%}
-/** Implementation, defined in {{ impl.package }} */
-{%- endif %}
+{{ els.documentation(impl, "Implementation") }}
 class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capitalize }} {
     // Modules
   {%- for inst in impl.implementation_instances.values() %}
+    {% if inst.document %}/** {{ inst.document }} */
+    {% endif -%}
     val {{ inst.name }} = Module(new {{ inst.impl.name | capitalize }})
   {%- endfor %}
+
     // Connections
   {%- for con in impl.nets.values() %}
+    {% if con.document %}// {{ con.document }}
+    {% endif -%}
     {% if con.sink_port_owner_name != "self" %}{{ con.sink_owner.name }}.{% endif %}{{ con.sink_port_name }} := {% if con.src_port_owner_name != "self" %}{{ con.src_owner.name }}.{% endif %}{{ con.src_port_name }}
   {%- endfor %}
 }

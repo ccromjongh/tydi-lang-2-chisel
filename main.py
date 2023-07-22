@@ -104,6 +104,9 @@ def new_process(data: dict) -> dict:
             item['value']['stream_type'] = logic_types[item['value']['stream_type']['value']]
             item['value']['user_type'] = logic_types[item['value']['user_type']['value']]
 
+        if type(item.get('value')) is dict:
+            item['document'] = item['value'].get('document')
+
     for (key, item) in streamlets.items():
         set_name(item)
 
@@ -118,10 +121,8 @@ def new_process(data: dict) -> dict:
         item['derived_streamlet'] = streamlets[item['derived_streamlet']]
         # Name ports and substitute references
         for name, instance in item['implementation_instances'].items():
-            item['implementation_instances'][name] = {
-                "name": name.split("__")[1],
-                "impl": implementations[instance['derived_implementation']]
-            }
+            instance['name'] = name.split("__")[1]
+            instance["impl"] = implementations[instance['derived_implementation']]
 
         # Name ports and substitute references
         for name, connection in item['nets'].items():

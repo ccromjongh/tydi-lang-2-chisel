@@ -1,14 +1,22 @@
+{% macro documentation_short(item, name) -%}
+/**{% if item.defined %} {{ name }}, defined in {{ item.package }}.{% if item.document %}
+ * {% endif %}{% endif %}{% if item.document %}{{ item.document | capitalize }}{% endif %} */
+{%- endmacro %}
+
+{% macro documentation(item, name) -%}
+/**{% if item.defined %}
+ * {{ name }}, defined in {{ item.package }}.{% endif %}{% if item.document %}
+ * {{ item.document | capitalize }}{% endif %}
+ */
+{%- endmacro %}
+
 {% macro bit(type) -%}
-{%- if type.defined -%}
-/** Bit({{type.value}}), defined in {{ type.package }} */
-{% endif -%}
+{{ documentation_short(type, "Bit(" + type.value  + ")") }}
 class {{type.name | capitalize}} extends BitsEl({{type.value}}.W)
 {%- endmacro %}
 
 {% macro group(type, types) -%}
-{%- if type.defined -%}
-/** Group element, defined in {{ type.package }} */
-{% endif -%}
+{{ documentation_short(type, "Group element") }}
 class {{type.name | capitalize}} extends Group {
 {%- for name, el in type.value.elements.items() %}
   {%- if el.type == LogicType.bit %}
@@ -21,9 +29,7 @@ class {{type.name | capitalize}} extends Group {
 {%- endmacro %}
 
 {% macro union(type, types) -%}
-{%- if type.defined -%}
-/** Union element, defined in {{ type.package }} */
-{% endif -%}
+{{ documentation_short(type, "Union element") }}
 class {{type.name | capitalize}} extends Union({{ type.value.elements.keys() | length }}) {
 {%- for name, el in type.value.elements.items() %}
   {%- if el.type == LogicType.bit %}
@@ -36,9 +42,7 @@ class {{type.name | capitalize}} extends Union({{ type.value.elements.keys() | l
 {%- endmacro %}
 
 {% macro stream(name, type, types) -%}
-{%- if type.defined -%}
-/** Stream, defined in {{ type.package }} */
-{% endif -%}
+{{ documentation_short(type, "Stream") }}
 class {{ name | capitalize }} extends PhysicalStreamDetailed(e=new {{type.value.stream_type.name | capitalize}}, n={{type.value.throughput | int}}, d={{type.value.dimension}}, c={{type.value.complexity}}, r={{'true' if type.value.direction=='Reverse' else 'false'}}, u={% if type.value.user_type.type == LogicType.null %}Null(){% else %}new {{type.value.user_type.name | capitalize}}{% endif %})
 {%- endmacro %}
 
