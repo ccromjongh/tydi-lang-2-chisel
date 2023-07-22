@@ -67,8 +67,7 @@ def new_process(data: dict) -> dict:
     streamlets = data.get('streamlets', {})
     implementations = data.get('implementations', {})
 
-    for (key, item) in logic_types.items():
-        item['type'] = LogicType(item['type'])
+    def set_name(item):
         name_parts = key.split('__')
         package = name_parts[0]
         if package.startswith('package_'):
@@ -79,8 +78,14 @@ def new_process(data: dict) -> dict:
         item['package'] = package
         if len(name_parts) == 1:
             item['unique'] = False
-            continue
+            return
         item['name'] = name_parts[1].lstrip('_')
+
+    for (key, item) in logic_types.items():
+        item['type'] = LogicType(item['type'])
+        set_name(item)
+        if not item.get('unique', True):
+            continue
 
         check_name = f"{item['name']}.{item['type']}"
         if not doubles_check.get(check_name, False):
@@ -100,8 +105,7 @@ def new_process(data: dict) -> dict:
             item['value']['user_type'] = logic_types[item['value']['user_type']['value']]
 
     for (key, item) in streamlets.items():
-        name_parts = key.split('__')
-        item['name'] = name_parts[0]
+        set_name(item)
 
         # Name ports and substitute references
         for name, port in item['ports'].items():
@@ -110,15 +114,7 @@ def new_process(data: dict) -> dict:
             port['direction'] = Direction(port['direction'])
 
     for (key, item) in implementations.items():
-        name_parts = key.split('__')
-        package = name_parts[0]
-        if package.startswith('package_'):
-            package = package[8:]
-            item['defined'] = True
-        else:
-            item['defined'] = False
-        item['package'] = package
-        item['name'] = name_parts[1].lstrip('_')
+        set_name(item)
         item['derived_streamlet'] = streamlets[item['derived_streamlet']]
         # Name ports and substitute references
         for name, instance in item['implementation_instances'].items():

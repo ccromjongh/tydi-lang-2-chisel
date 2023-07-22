@@ -1,180 +1,34 @@
 {
   "logic_types": {
-    "3kzdTL60": {
+    "384e_3__user_type_generated_0_12_jBXOZpx7_15": {
+      "type": "Null"
+    },
+    "6aKi_7__generated_156_174_5QIPdBaq_2": {
       "type": "Ref",
-      "value": "package_pack0__generated_0_12_ORrmblpJ_14"
+      "value": "package_pack0__generated_0_12_jBXOZpx7_15"
     },
-    "7SDm__user_type_generated_0_12_rDHhGnT8_13": {
-      "type": "Null"
-    },
-    "EEFd__stream_type_generated_0_12_rDHhGnT8_13": {
-      "type": "Union",
-      "value": {
-        "elements": {
-          "large": {
-            "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__large"
-          },
-          "mid": {
-            "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__mid"
-          },
-          "small": {
-            "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__small"
-          }
-        }
-      }
-    },
-    "Jant__generated_151_163_B4jf2WAI_5": {
-      "type": "Stream",
-      "value": {
-        "stream_type": {
-          "type": "Ref",
-          "value": "ldYV__stream_type_generated_0_12_rDHhGnT8_13"
-        },
-        "dimension": 1,
-        "user_type": {
-          "type": "Ref",
-          "value": "7SDm__user_type_generated_0_12_rDHhGnT8_13"
-        },
-        "throughput": 1.0,
-        "synchronicity": "Sync",
-        "complexity": 1,
-        "direction": "Forward",
-        "keep": false
-      }
-    },
-    "Vfhb__stream_type_generated_0_12_rDHhGnT8_13": {
-      "type": "Union",
-      "value": {
-        "elements": {
-          "large": {
-            "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__large"
-          },
-          "mid": {
-            "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__mid"
-          },
-          "small": {
-            "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__small"
-          }
-        }
-      }
-    },
-    "WYjy__user_type_generated_0_12_rDHhGnT8_13": {
-      "type": "Null"
-    },
-    "bNqi__user_type_generated_0_12_rDHhGnT8_13": {
-      "type": "Null"
-    },
-    "cW7O__user_type_generated_0_12_rDHhGnT8_13": {
-      "type": "Null"
-    },
-    "geX2__generated_151_163_B4jf2WAI_5": {
-      "type": "Stream",
-      "value": {
-        "stream_type": {
-          "type": "Ref",
-          "value": "wIGi__stream_type_generated_0_12_rDHhGnT8_13"
-        },
-        "dimension": 1,
-        "user_type": {
-          "type": "Ref",
-          "value": "bNqi__user_type_generated_0_12_rDHhGnT8_13"
-        },
-        "throughput": 1.0,
-        "synchronicity": "Sync",
-        "complexity": 1,
-        "direction": "Forward",
-        "keep": false
-      }
-    },
-    "generated_0_12_rDHhGnT8_13": {
-      "type": "Stream",
-      "value": {
-        "stream_type": {
-          "type": "Ref",
-          "value": "wIGi__stream_type_generated_0_12_rDHhGnT8_13"
-        },
-        "dimension": 1,
-        "user_type": {
-          "type": "Ref",
-          "value": "bNqi__user_type_generated_0_12_rDHhGnT8_13"
-        },
-        "throughput": 1.0,
-        "synchronicity": "Sync",
-        "complexity": 1,
-        "direction": "Forward",
-        "keep": false
-      }
-    },
-    "kJDF__generated_113_125_Q9AZMiqS_3": {
-      "type": "Stream",
-      "value": {
-        "stream_type": {
-          "type": "Ref",
-          "value": "EEFd__stream_type_generated_0_12_rDHhGnT8_13"
-        },
-        "dimension": 1,
-        "user_type": {
-          "type": "Ref",
-          "value": "cW7O__user_type_generated_0_12_rDHhGnT8_13"
-        },
-        "throughput": 1.0,
-        "synchronicity": "Sync",
-        "complexity": 1,
-        "direction": "Forward",
-        "keep": false
-      }
-    },
-    "ldYV__stream_type_generated_0_12_rDHhGnT8_13": {
-      "type": "Union",
-      "value": {
-        "elements": {
-          "large": {
-            "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__large"
-          },
-          "mid": {
-            "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__mid"
-          },
-          "small": {
-            "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__small"
-          }
-        }
-      }
-    },
-    "logic_union_generated_108_210_k5YYbc27_1__large": {
+    "BMgT_10__generated_246_264_OKVFA9Jp_4": {
       "type": "Ref",
-      "value": "package_pack0__generated_0_7_Hlw5yqpv_16"
+      "value": "package_pack0__generated_0_12_jBXOZpx7_15"
     },
-    "logic_union_generated_108_210_k5YYbc27_1__mid": {
-      "type": "Ref",
-      "value": "package_pack0__generated_0_6_8XMfVAds_18"
-    },
-    "logic_union_generated_108_210_k5YYbc27_1__small": {
-      "type": "Ref",
-      "value": "package_pack0__generated_0_6_tZmnG4FO_20"
-    },
-    "m6pc__user_type_generated_0_12_rDHhGnT8_13": {
+    "Bh4U_6__user_type_generated_0_12_jBXOZpx7_15": {
       "type": "Null"
     },
-    "package_pack0__generated_0_12_ORrmblpJ_14": {
+    "P3Ko_4__generated_246_264_OKVFA9Jp_4": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_12_jBXOZpx7_15"
+    },
+    "generated_0_12_jBXOZpx7_15": {
       "type": "Stream",
       "value": {
         "stream_type": {
           "type": "Ref",
-          "value": "Vfhb__stream_type_generated_0_12_rDHhGnT8_13"
+          "value": "package_pack0__size"
         },
         "dimension": 1,
         "user_type": {
           "type": "Ref",
-          "value": "m6pc__user_type_generated_0_12_rDHhGnT8_13"
+          "value": "oYbp_12__user_type_generated_0_12_jBXOZpx7_15"
         },
         "throughput": 1.0,
         "synchronicity": "Sync",
@@ -183,155 +37,145 @@
         "keep": false
       }
     },
-    "package_pack0__generated_0_6_8XMfVAds_18": {
+    "logic_union_generated_108_242_LKKh0fxE_1__large": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_7_tYLPO7U8_18"
+    },
+    "logic_union_generated_108_242_LKKh0fxE_1__mid": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_6_8nvrek95_20"
+    },
+    "logic_union_generated_108_242_LKKh0fxE_1__small": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_6_Exbqrs4y_22"
+    },
+    "mGaE_9__user_type_generated_0_12_jBXOZpx7_15": {
+      "type": "Null"
+    },
+    "oYbp_12__user_type_generated_0_12_jBXOZpx7_15": {
+      "type": "Null"
+    },
+    "package_pack0__generated_0_12_jBXOZpx7_15": {
+      "type": "Stream",
+      "value": {
+        "stream_type": {
+          "type": "Ref",
+          "value": "package_pack0__size"
+        },
+        "dimension": 1,
+        "user_type": {
+          "type": "Ref",
+          "value": "oYbp_12__user_type_generated_0_12_jBXOZpx7_15"
+        },
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+        "keep": false
+      }
+    },
+    "package_pack0__generated_0_6_8nvrek95_20": {
       "type": "Bit",
       "value": 8
     },
-    "package_pack0__generated_0_6_tZmnG4FO_20": {
+    "package_pack0__generated_0_6_Exbqrs4y_22": {
       "type": "Bit",
       "value": 4
     },
-    "package_pack0__generated_0_7_Hlw5yqpv_16": {
+    "package_pack0__generated_0_7_tYLPO7U8_18": {
       "type": "Bit",
       "value": 16
     },
-    "qIOl__generated_113_125_Q9AZMiqS_3": {
-      "type": "Stream",
-      "value": {
-        "stream_type": {
-          "type": "Ref",
-          "value": "txyq__stream_type_generated_0_12_rDHhGnT8_13"
-        },
-        "dimension": 1,
-        "user_type": {
-          "type": "Ref",
-          "value": "WYjy__user_type_generated_0_12_rDHhGnT8_13"
-        },
-        "throughput": 1.0,
-        "synchronicity": "Sync",
-        "complexity": 1,
-        "direction": "Forward",
-        "keep": false
-      }
-    },
-    "txyq__stream_type_generated_0_12_rDHhGnT8_13": {
+    "package_pack0__size": {
       "type": "Union",
       "value": {
         "elements": {
           "large": {
             "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__large"
+            "value": "logic_union_generated_108_242_LKKh0fxE_1__large"
           },
           "mid": {
             "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__mid"
+            "value": "logic_union_generated_108_242_LKKh0fxE_1__mid"
           },
           "small": {
             "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__small"
+            "value": "logic_union_generated_108_242_LKKh0fxE_1__small"
           }
-        }
+        },
+        "document": "this is an union size"
       }
     },
-    "wIGi__stream_type_generated_0_12_rDHhGnT8_13": {
-      "type": "Union",
-      "value": {
-        "elements": {
-          "large": {
-            "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__large"
-          },
-          "mid": {
-            "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__mid"
-          },
-          "small": {
-            "type": "Ref",
-            "value": "logic_union_generated_108_210_k5YYbc27_1__small"
-          }
-        }
-      }
+    "rbT2_1__generated_156_174_5QIPdBaq_2": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_12_jBXOZpx7_15"
     }
   },
   "streamlets": {
-    "implementation_bypass_i_stream_size__generated_52_177_WZtdBybI_2": {
+    "package_pack1__bypass_s": {
       "ports": {
-        "instance_streamlet_generated_52_177_WZtdBybI_2_RefToVargenerated_0_12_ORrmblpJ_14__generated_104_127_bVHc1qaF_4": {
+        "streamlet_bypass_s__port_in": {
           "logic_type": {
             "type": "Ref",
-            "value": "kJDF__generated_113_125_Q9AZMiqS_3"
+            "value": "6aKi_7__generated_156_174_5QIPdBaq_2"
           },
-          "direction": "In"
+          "direction": "In",
+          "document": "this is port_in"
         },
-        "instance_streamlet_generated_52_177_WZtdBybI_2_RefToVargenerated_0_12_ORrmblpJ_14__generated_141_166_qD0c4C7Z_6": {
+        "streamlet_bypass_s__port_out": {
           "logic_type": {
             "type": "Ref",
-            "value": "Jant__generated_151_163_B4jf2WAI_5"
+            "value": "BMgT_10__generated_246_264_OKVFA9Jp_4"
           },
-          "direction": "Out"
+          "direction": "Out",
+          "document": "this is port_out"
         }
-      }
-    },
-    "instance_implementation_bypass_i_RefToVargenerated_0_12_ORrmblpJ_14__generated_52_177_WZtdBybI_2": {
-      "ports": {
-        "instance_streamlet_generated_52_177_WZtdBybI_2_Identifierbypass_type__generated_104_127_bVHc1qaF_4": {
-          "logic_type": {
-            "type": "Ref",
-            "value": "qIOl__generated_113_125_Q9AZMiqS_3"
-          },
-          "direction": "In"
-        },
-        "instance_streamlet_generated_52_177_WZtdBybI_2_Identifierbypass_type__generated_141_166_qD0c4C7Z_6": {
-          "logic_type": {
-            "type": "Ref",
-            "value": "geX2__generated_151_163_B4jf2WAI_5"
-          },
-          "direction": "Out"
-        }
-      }
+      },
+      "document": "this is a streamlet"
     }
   },
   "implementations": {
-    "implementation_bypass_i_stream_size__bypass_i": {
-      "impl_type": {
-        "TemplateInstance": [
-          "bypass_i",
-          {
-            "0": {
-              "LogicType": {
-                "type": "Ref",
-                "value": "3kzdTL60"
-              }
-            }
-          }
-        ]
-      },
-      "derived_streamlet": "instance_implementation_bypass_i_RefToVargenerated_0_12_ORrmblpJ_14__generated_52_177_WZtdBybI_2",
-      "nets": {},
-      "implementation_instances": {}
-    },
-    "package_pack1__bypass_i_stream_size": {
+    "package_pack1__bypass_i": {
       "impl_type": "Normal",
-      "derived_streamlet": "implementation_bypass_i_stream_size__generated_52_177_WZtdBybI_2",
+      "derived_streamlet": "package_pack1__bypass_s",
       "nets": {
-        "implementation_bypass_i_stream_size__generated_436_471_mYno7S32_7": {
-          "src_port_name": "instance_streamlet_generated_52_177_WZtdBybI_2_RefToVargenerated_0_12_ORrmblpJ_14__generated_104_127_bVHc1qaF_4",
+        "implementation_bypass_i__generated_606_695_h4CpQ593_9": {
+          "src_port_name": "streamlet_bypass_s__port_in",
           "src_port_owner_name": "self",
-          "sink_port_name": "instance_streamlet_generated_52_177_WZtdBybI_2_Identifierbypass_type__generated_104_127_bVHc1qaF_4",
-          "sink_port_owner_name": "implementation_bypass_i_stream_size__bypass_inst"
+          "sink_port_name": "streamlet_bypass_s__port_in",
+          "sink_port_owner_name": "self",
+          "document": "ports on self have \"opposite\" direction"
         },
-        "implementation_bypass_i_stream_size__generated_485_522_46oF2Mdx_10": {
-          "src_port_name": "instance_streamlet_generated_52_177_WZtdBybI_2_Identifierbypass_type__generated_141_166_qD0c4C7Z_6",
-          "src_port_owner_name": "implementation_bypass_i_stream_size__bypass_inst",
-          "sink_port_name": "instance_streamlet_generated_52_177_WZtdBybI_2_RefToVargenerated_0_12_ORrmblpJ_14__generated_141_166_qD0c4C7Z_6",
-          "sink_port_owner_name": "self"
+        "implementation_bypass_i__generated_709_744_IZ1kYjzY_12": {
+          "src_port_name": "streamlet_bypass_s__port_out",
+          "src_port_owner_name": "self",
+          "sink_port_name": "streamlet_bypass_s__port_out",
+          "sink_port_owner_name": "self",
+          "document": null
         }
       },
       "implementation_instances": {
-        "implementation_bypass_i_stream_size__bypass_inst": {
-          "derived_implementation": "implementation_bypass_i_stream_size__bypass_i"
+        "implementation_bypass_i__test_inst": {
+          "derived_implementation": "package_pack1__bypass_i_inner",
+          "document": "this instance is used to test using an implementation without template expansion"
         }
-      }
+      },
+      "document": null
+    },
+    "package_pack1__bypass_i_inner": {
+      "impl_type": "Normal",
+      "derived_streamlet": "package_pack1__bypass_s",
+      "nets": {
+        "implementation_bypass_i_inner__generated_370_399_u940r7bJ_6": {
+          "src_port_name": "streamlet_bypass_s__port_in",
+          "src_port_owner_name": "self",
+          "sink_port_name": "streamlet_bypass_s__port_out",
+          "sink_port_owner_name": "self",
+          "document": null
+        }
+      },
+      "implementation_instances": {},
+      "document": "this is an implementation"
     }
   }
 }
