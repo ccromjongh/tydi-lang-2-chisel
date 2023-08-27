@@ -81,6 +81,16 @@ def new_process(data: dict) -> dict:
             return
         item['name'] = name_parts[1].lstrip('_')
 
+    def filter_port_name(name: str) -> str:
+        """
+        Tydi-lang cannot handle "in" or "out" as signal name, therefore these are prefixed with "std_".
+        This function removes that prefix.
+
+        :param name: Unprocessed name
+        :return: Name with "std_" removed
+        """
+        return name.removeprefix("std_")
+
     for (key, item) in logic_types.items():
         item['type'] = LogicType(item['type'])
         set_name(item)
@@ -113,7 +123,7 @@ def new_process(data: dict) -> dict:
         # Name ports and substitute references
         for name, port in item['ports'].items():
             port['logic_type'] = logic_types[port['logic_type']['value']]
-            port['name'] = name.split('__')[1]
+            port['name'] = filter_port_name(name.split('__')[1])
             port['direction'] = Direction(port['direction'])
 
     for (key, item) in implementations.items():
@@ -128,8 +138,8 @@ def new_process(data: dict) -> dict:
         for name, connection in item['nets'].items():
             connection['src_owner'] = item if connection['src_port_owner_name'] == "self" else item['implementation_instances'][connection['src_port_owner_name']]
             connection['sink_owner'] = item if connection['sink_port_owner_name'] == "self" else item['implementation_instances'][connection['sink_port_owner_name']]
-            connection['src_port_name'] = connection['src_port_name'].split("__")[1]
-            connection['sink_port_name'] = connection['sink_port_name'].split("__")[1]
+            connection['src_port_name'] = filter_port_name(connection['src_port_name'].split("__")[1])
+            connection['sink_port_name'] = filter_port_name(connection['sink_port_name'].split("__")[1])
 
     return data
 

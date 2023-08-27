@@ -41,13 +41,14 @@ class {{ streamlet.name | capitalize }} extends TydiModule {
 {%- for impl in implementations.values() %}
 {{ els.documentation(impl, "Implementation") }}
 class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capitalize }} {
+{%- if impl.implementation_instances %}
     // Modules
   {%- for inst in impl.implementation_instances.values() %}
     {% if inst.document %}/** {{ inst.document | sentence }} */
     {% endif -%}
     val {{ inst.name }} = Module(new {{ inst.impl.name | capitalize }})
   {%- endfor %}
-
+{% endif %}
     // Connections
   {%- for con in impl.nets.values() %}
     {% if con.document %}// {{ con.document | sentence }}
