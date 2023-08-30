@@ -144,8 +144,17 @@ def new_process(data: dict) -> dict:
     return data
 
 
+def new_capitalize(value: str):
+    return value[:1].upper() + value[1:]
+
+
+def snake2camel(value: str):
+    temp = value.split('_')
+    return ''.join(el.title() for el in temp)
+
+
 def sentence_filter(value: str):
-    return value.strip().capitalize().rstrip('.') + "."
+    return new_capitalize(value.strip().rstrip('.') + ".")
 
 
 if __name__ == '__main__':
@@ -158,6 +167,8 @@ if __name__ == '__main__':
     env.globals['LogicType'] = LogicType
     env.globals['Direction'] = Direction
     env.filters['sentence'] = sentence_filter
+    env.filters['capitalize'] = new_capitalize
+    env.filters['snake2camel'] = snake2camel
     to_template = new_process(dict(tydi_data))
     output = template.render(to_template)
     print(output)
