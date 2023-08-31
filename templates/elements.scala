@@ -50,6 +50,6 @@ class {{ name | capitalize }} extends PhysicalStreamDetailed(e=new {{type.value.
 {{ stream(type.name, types[type.value], types) }}
 
 object {{ type.name | capitalize }} {
-    def apply(): {{ type.name | capitalize }} = new {{ type.name | capitalize }}()
+    def apply(): {{ type.name | capitalize }} = Wire(new {{ type.name | capitalize }}())
 }
 {%- endmacro %}
