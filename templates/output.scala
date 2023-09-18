@@ -34,6 +34,10 @@ class {{ streamlet.name | capitalize }} extends TydiModule {
     val {{ port.name }}Stream = {{ port.logic_type.name | capitalize }}(){% if port.direction == Direction.input %}.flip{% endif %}
     /** IO of [[{{ port.name }}Stream]] with {{ port.direction.name }} direction. */
     val {{ port.name }} = {{ port.name }}Stream.toPhysical
+
+    {%- for sub_port in port.sub_streams %}
+        val {{ sub_port.name }} = {{ port.name }}Stream.{{ '.'.join(sub_port.path) }}.toPhysical
+    {%- endfor %}
   {%- endfor %}
 }
 {% endfor %}
@@ -56,7 +60,7 @@ class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capi
     {% endif -%}
     {% if con.sink_port_owner_name != "self" %}{{ con.sink_owner.name }}.{% endif %}{{ con.sink_port_name }} := {% if con.src_port_owner_name != "self" %}{{ con.src_owner.name }}.{% endif %}{{ con.src_port_name }}
     {%- for sub_con in con.sub_streams %}
-        {% if con.sink_port_owner_name != "self" %}{{ con.sink_owner.name }}.{% endif %}{{ sub_con.sink_port_name }} := {% if con.src_port_owner_name != "self" %}{{ con.src_owner.name }}.{% endif %}{{ sub_con.src_port_name }}
+        {% if con.sink_port_owner_name != "self" %}{{ con.sink_owner.name }}.{% endif %}{{ sub_con.name }} := {% if con.src_port_owner_name != "self" %}{{ con.src_owner.name }}.{% endif %}{{ sub_con.name }}
     {%- endfor %}
   {%- endfor %}
 {% endif -%}

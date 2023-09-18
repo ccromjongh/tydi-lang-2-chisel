@@ -91,6 +91,24 @@ def new_process(data: dict) -> dict:
         """
         return name.removeprefix("std_")
 
+    def find_child_streams(stream: dict, path: list[str] = []) -> list:
+        l = []
+        if stream['type'] != LogicType.stream:
+            return l
+
+        data_type = stream['value']['stream_type']
+        if data_type['type'] in [LogicType.group, LogicType.union]:
+            for name, el in data_type['value']['elements'].items():
+                new_path = list(path) + ['el', name]
+                if el['type'] == LogicType.stream:
+                    connection = {
+                        'name': name,
+                        'path': new_path
+                    }
+                    l.append(connection)
+                l = l + find_child_streams(el, new_path)
+        return l
+
     for (key, item) in logic_types.items():
         item['type'] = LogicType(item['type'])
         set_name(item)
@@ -129,24 +147,7 @@ def new_process(data: dict) -> dict:
             port['logic_type'] = logic_type
             port['name'] = filter_port_name(name.split('__')[1])
             port['direction'] = Direction(port['direction'])
-
-    def find_child_streams(stream: dict, src: dict, sink: dict, l: list) -> list:
-        if stream['type'] != LogicType.stream:
-            return l
-        data_type = stream['value']['stream_type']
-        if data_type['type'] in [LogicType.group, LogicType.union]:
-            for name, el in data_type['value']['elements'].items():
-                if el['type'] == LogicType.stream:
-                    connection = {
-                        'src_owner': src,
-                        'sink_owner': sink,
-                        'src_port_name': name,
-                        'sink_port_name': name
-                    }
-                    l.append(connection)
-                l = l + find_child_streams(el, src, sink, [])
-
-        return l
+            port['sub_streams'] = find_child_streams(logic_type)
 
     for (key, item) in implementations.items():
         set_name(item)
@@ -168,7 +169,7 @@ def new_process(data: dict) -> dict:
             port = next((port for port in src_streamlet['ports'].values() if port['name'] == connection['src_port_name']), None)
             port_type = port['logic_type']
             connection['type'] = port_type
-            sub_streams = find_child_streams(port_type, connection['src_owner'], connection['sink_owner'], [])
+            sub_streams = port['sub_streams']
             data_type = port_type['value']['stream_type']
             connection['data_type'] = data_type
             connection['sub_streams'] = sub_streams
