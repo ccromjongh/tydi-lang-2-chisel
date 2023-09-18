@@ -122,9 +122,31 @@ def new_process(data: dict) -> dict:
 
         # Name ports and substitute references
         for name, port in item['ports'].items():
-            port['logic_type'] = logic_types[port['logic_type']['value']]
+            logic_type = port['logic_type']
+            # Follow all references
+            while logic_type['type'] != LogicType.stream:
+                logic_type = logic_types[logic_type['value']]
+            port['logic_type'] = logic_type
             port['name'] = filter_port_name(name.split('__')[1])
             port['direction'] = Direction(port['direction'])
+
+    def find_child_streams(stream: dict, src: dict, sink: dict, l: list) -> list:
+        if stream['type'] != LogicType.stream:
+            return l
+        data_type = stream['value']['stream_type']
+        if data_type['type'] in [LogicType.group, LogicType.union]:
+            for name, el in data_type['value']['elements'].items():
+                if el['type'] == LogicType.stream:
+                    connection = {
+                        'src_owner': src,
+                        'sink_owner': sink,
+                        'src_port_name': name,
+                        'sink_port_name': name
+                    }
+                    l.append(connection)
+                l = l + find_child_streams(el, src, sink, [])
+
+        return l
 
     for (key, item) in implementations.items():
         set_name(item)
@@ -140,6 +162,17 @@ def new_process(data: dict) -> dict:
             connection['sink_owner'] = item if connection['sink_port_owner_name'] == "self" else item['implementation_instances'][connection['sink_port_owner_name']]
             connection['src_port_name'] = filter_port_name(connection['src_port_name'].split("__")[1])
             connection['sink_port_name'] = filter_port_name(connection['sink_port_name'].split("__")[1])
+
+            src_impl = item if connection['src_port_owner_name'] == "self" else connection['src_owner']['impl']
+            src_streamlet = src_impl['derived_streamlet']
+            port = next((port for port in src_streamlet['ports'].values() if port['name'] == connection['src_port_name']), None)
+            port_type = port['logic_type']
+            connection['type'] = port_type
+            sub_streams = find_child_streams(port_type, connection['src_owner'], connection['sink_owner'], [])
+            data_type = port_type['value']['stream_type']
+            connection['data_type'] = data_type
+            connection['sub_streams'] = sub_streams
+            pass
 
     return data
 
