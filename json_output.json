@@ -1,34 +1,50 @@
 {
   "logic_types": {
-    "384e_3__user_type_generated_0_12_jBXOZpx7_15": {
+    "0Qz8_10__generated_114_139_TSuzlpzQ_3": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_36_JI5PTYzg_24"
+    },
+    "1v9u_4__generated_562_581_8ln94DFm_11": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_30_73CrM0DN_30"
+    },
+    "4FLx_9__user_type_generated_0_36_JI5PTYzg_24": {
       "type": "Null"
     },
-    "6aKi_7__generated_156_174_5QIPdBaq_2": {
-      "type": "Ref",
-      "value": "package_pack0__generated_0_12_jBXOZpx7_15"
-    },
-    "BMgT_10__generated_246_264_OKVFA9Jp_4": {
-      "type": "Ref",
-      "value": "package_pack0__generated_0_12_jBXOZpx7_15"
-    },
-    "Bh4U_6__user_type_generated_0_12_jBXOZpx7_15": {
+    "7RVI_15__user_type_generated_0_36_JI5PTYzg_24": {
       "type": "Null"
     },
-    "P3Ko_4__generated_246_264_OKVFA9Jp_4": {
-      "type": "Ref",
-      "value": "package_pack0__generated_0_12_jBXOZpx7_15"
+    "7Xsf_3__user_type_generated_0_36_JI5PTYzg_24": {
+      "type": "Null"
     },
-    "generated_0_12_jBXOZpx7_15": {
+    "8QAO_16__generated_347_366_mtBGmgUU_7": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_30_73CrM0DN_30"
+    },
+    "9cFS_18__user_type_generated_0_30_73CrM0DN_30": {
+      "type": "Null"
+    },
+    "Aagb_12__user_type_generated_0_36_JI5PTYzg_24": {
+      "type": "Null"
+    },
+    "Aisz_13__generated_392_417_1PCyUfwW_9": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_36_JI5PTYzg_24"
+    },
+    "JVmD_6__user_type_generated_0_30_73CrM0DN_30": {
+      "type": "Null"
+    },
+    "generated_0_30_73CrM0DN_30": {
       "type": "Stream",
       "value": {
         "stream_type": {
           "type": "Ref",
-          "value": "package_pack0__size"
+          "value": "package_pack0__Stats"
         },
         "dimension": 1,
         "user_type": {
           "type": "Ref",
-          "value": "oYbp_12__user_type_generated_0_12_jBXOZpx7_15"
+          "value": "9cFS_18__user_type_generated_0_30_73CrM0DN_30"
         },
         "throughput": 1.0,
         "synchronicity": "Sync",
@@ -37,35 +53,17 @@
         "keep": false
       }
     },
-    "logic_union_generated_108_242_LKKh0fxE_1__large": {
-      "type": "Ref",
-      "value": "package_pack0__generated_0_7_tYLPO7U8_18"
-    },
-    "logic_union_generated_108_242_LKKh0fxE_1__mid": {
-      "type": "Ref",
-      "value": "package_pack0__generated_0_6_8nvrek95_20"
-    },
-    "logic_union_generated_108_242_LKKh0fxE_1__small": {
-      "type": "Ref",
-      "value": "package_pack0__generated_0_6_Exbqrs4y_22"
-    },
-    "mGaE_9__user_type_generated_0_12_jBXOZpx7_15": {
-      "type": "Null"
-    },
-    "oYbp_12__user_type_generated_0_12_jBXOZpx7_15": {
-      "type": "Null"
-    },
-    "package_pack0__generated_0_12_jBXOZpx7_15": {
+    "generated_0_36_JI5PTYzg_24": {
       "type": "Stream",
       "value": {
         "stream_type": {
           "type": "Ref",
-          "value": "package_pack0__size"
+          "value": "package_pack0__NumberGroup"
         },
         "dimension": 1,
         "user_type": {
           "type": "Ref",
-          "value": "oYbp_12__user_type_generated_0_12_jBXOZpx7_15"
+          "value": "7RVI_15__user_type_generated_0_36_JI5PTYzg_24"
         },
         "throughput": 1.0,
         "synchronicity": "Sync",
@@ -74,108 +72,242 @@
         "keep": false
       }
     },
-    "package_pack0__generated_0_6_8nvrek95_20": {
-      "type": "Bit",
-      "value": 8
+    "logic_group_generated_364_458_THHgvX4k_2__time": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_7_CTh3cRpJ_27"
     },
-    "package_pack0__generated_0_6_Exbqrs4y_22": {
-      "type": "Bit",
-      "value": 4
+    "logic_group_generated_364_458_THHgvX4k_2__value": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_7_AudkORtF_29"
     },
-    "package_pack0__generated_0_7_tYLPO7U8_18": {
-      "type": "Bit",
-      "value": 16
+    "logic_group_generated_78_229_KfxXgprQ_1__average": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_7_CTh3cRpJ_27"
     },
-    "package_pack0__size": {
-      "type": "Union",
+    "logic_group_generated_78_229_KfxXgprQ_1__max": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_7_CTh3cRpJ_27"
+    },
+    "logic_group_generated_78_229_KfxXgprQ_1__min": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_7_CTh3cRpJ_27"
+    },
+    "logic_group_generated_78_229_KfxXgprQ_1__sum": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_7_CTh3cRpJ_27"
+    },
+    "mQkk_1__generated_607_632_HlxXfYFN_13": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_36_JI5PTYzg_24"
+    },
+    "ndv7_7__generated_165_190_BDoT0FmX_5": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_36_JI5PTYzg_24"
+    },
+    "package_pack0__NumberGroup": {
+      "type": "Group",
       "value": {
         "elements": {
-          "large": {
+          "time": {
             "type": "Ref",
-            "value": "logic_union_generated_108_242_LKKh0fxE_1__large"
+            "value": "logic_group_generated_364_458_THHgvX4k_2__time"
           },
-          "mid": {
+          "value": {
             "type": "Ref",
-            "value": "logic_union_generated_108_242_LKKh0fxE_1__mid"
-          },
-          "small": {
-            "type": "Ref",
-            "value": "logic_union_generated_108_242_LKKh0fxE_1__small"
+            "value": "logic_group_generated_364_458_THHgvX4k_2__value"
           }
         },
-        "document": "this is an union size"
+        "document": null
       }
     },
-    "rbT2_1__generated_156_174_5QIPdBaq_2": {
-      "type": "Ref",
-      "value": "package_pack0__generated_0_12_jBXOZpx7_15"
+    "package_pack0__Stats": {
+      "type": "Group",
+      "value": {
+        "elements": {
+          "average": {
+            "type": "Ref",
+            "value": "logic_group_generated_78_229_KfxXgprQ_1__average"
+          },
+          "max": {
+            "type": "Ref",
+            "value": "logic_group_generated_78_229_KfxXgprQ_1__max"
+          },
+          "min": {
+            "type": "Ref",
+            "value": "logic_group_generated_78_229_KfxXgprQ_1__min"
+          },
+          "sum": {
+            "type": "Ref",
+            "value": "logic_group_generated_78_229_KfxXgprQ_1__sum"
+          }
+        },
+        "document": null
+      }
+    },
+    "package_pack0__generated_0_30_73CrM0DN_30": {
+      "type": "Stream",
+      "value": {
+        "stream_type": {
+          "type": "Ref",
+          "value": "package_pack0__Stats"
+        },
+        "dimension": 1,
+        "user_type": {
+          "type": "Ref",
+          "value": "9cFS_18__user_type_generated_0_30_73CrM0DN_30"
+        },
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+        "keep": false
+      }
+    },
+    "package_pack0__generated_0_36_JI5PTYzg_24": {
+      "type": "Stream",
+      "value": {
+        "stream_type": {
+          "type": "Ref",
+          "value": "package_pack0__NumberGroup"
+        },
+        "dimension": 1,
+        "user_type": {
+          "type": "Ref",
+          "value": "7RVI_15__user_type_generated_0_36_JI5PTYzg_24"
+        },
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+        "keep": false
+      }
+    },
+    "package_pack0__generated_0_7_AudkORtF_29": {
+      "type": "Bit",
+      "value": 64
+    },
+    "package_pack0__generated_0_7_CTh3cRpJ_27": {
+      "type": "Bit",
+      "value": 64
     }
   },
   "streamlets": {
-    "package_pack1__bypass_s": {
+    "package_pack1__NonNegativeFilter_interface": {
       "ports": {
-        "streamlet_bypass_s__port_in": {
+        "streamlet_NonNegativeFilter_interface__std_in": {
           "logic_type": {
             "type": "Ref",
-            "value": "6aKi_7__generated_156_174_5QIPdBaq_2"
+            "value": "ndv7_7__generated_165_190_BDoT0FmX_5"
           },
           "direction": "In",
-          "document": "this is port_in"
+          "document": null
         },
-        "streamlet_bypass_s__port_out": {
+        "streamlet_NonNegativeFilter_interface__std_out": {
           "logic_type": {
             "type": "Ref",
-            "value": "BMgT_10__generated_246_264_OKVFA9Jp_4"
+            "value": "0Qz8_10__generated_114_139_TSuzlpzQ_3"
           },
           "direction": "Out",
-          "document": "this is port_out"
-        }
-      },
-      "document": "this is a streamlet"
-    }
-  },
-  "implementations": {
-    "package_pack1__bypass_i": {
-      "impl_type": "Normal",
-      "derived_streamlet": "package_pack1__bypass_s",
-      "nets": {
-        "implementation_bypass_i__generated_606_695_h4CpQ593_9": {
-          "src_port_name": "streamlet_bypass_s__port_in",
-          "src_port_owner_name": "self",
-          "sink_port_name": "streamlet_bypass_s__port_in",
-          "sink_port_owner_name": "implementation_bypass_i__test_inst",
-          "document": "ports on self have \"opposite\" direction"
-        },
-        "implementation_bypass_i__generated_709_744_IZ1kYjzY_12": {
-          "src_port_name": "streamlet_bypass_s__port_out",
-          "src_port_owner_name": "implementation_bypass_i__test_inst",
-          "sink_port_name": "streamlet_bypass_s__port_out",
-          "sink_port_owner_name": "self",
           "document": null
-        }
-      },
-      "implementation_instances": {
-        "implementation_bypass_i__test_inst": {
-          "derived_implementation": "package_pack1__bypass_i_inner",
-          "document": "this instance is used to test using an implementation without template expansion"
         }
       },
       "document": null
     },
-    "package_pack1__bypass_i_inner": {
-      "impl_type": "Normal",
-      "derived_streamlet": "package_pack1__bypass_s",
-      "nets": {
-        "implementation_bypass_i_inner__generated_370_399_u940r7bJ_6": {
-          "src_port_name": "streamlet_bypass_s__port_in",
-          "src_port_owner_name": "self",
-          "sink_port_name": "streamlet_bypass_s__port_out",
-          "sink_port_owner_name": "self",
+    "package_pack1__PipelineExample_interface": {
+      "ports": {
+        "streamlet_PipelineExample_interface__std_in": {
+          "logic_type": {
+            "type": "Ref",
+            "value": "mQkk_1__generated_607_632_HlxXfYFN_13"
+          },
+          "direction": "In",
+          "document": null
+        },
+        "streamlet_PipelineExample_interface__std_out": {
+          "logic_type": {
+            "type": "Ref",
+            "value": "1v9u_4__generated_562_581_8ln94DFm_11"
+          },
+          "direction": "Out",
           "document": null
         }
       },
+      "document": null
+    },
+    "package_pack1__Reducer_interface": {
+      "ports": {
+        "streamlet_Reducer_interface__std_in": {
+          "logic_type": {
+            "type": "Ref",
+            "value": "Aisz_13__generated_392_417_1PCyUfwW_9"
+          },
+          "direction": "In",
+          "document": null
+        },
+        "streamlet_Reducer_interface__std_out": {
+          "logic_type": {
+            "type": "Ref",
+            "value": "8QAO_16__generated_347_366_mtBGmgUU_7"
+          },
+          "direction": "Out",
+          "document": null
+        }
+      },
+      "document": null
+    }
+  },
+  "implementations": {
+    "package_pack1__NonNegativeFilter": {
+      "impl_type": "Normal",
+      "derived_streamlet": "package_pack1__NonNegativeFilter_interface",
+      "nets": {},
       "implementation_instances": {},
-      "document": "this is an implementation"
+      "document": null
+    },
+    "package_pack1__PipelineExample": {
+      "impl_type": "Normal",
+      "derived_streamlet": "package_pack1__PipelineExample_interface",
+      "nets": {
+        "implementation_PipelineExample__generated_814_846_4oQhWbOp_15": {
+          "src_port_name": "streamlet_NonNegativeFilter_interface__std_out",
+          "src_port_owner_name": "implementation_PipelineExample__filter",
+          "sink_port_name": "streamlet_Reducer_interface__std_in",
+          "sink_port_owner_name": "implementation_PipelineExample__reducer",
+          "document": null
+        },
+        "implementation_PipelineExample__generated_860_891_jm19vgaj_18": {
+          "src_port_name": "streamlet_Reducer_interface__std_out",
+          "src_port_owner_name": "implementation_PipelineExample__reducer",
+          "sink_port_name": "streamlet_PipelineExample_interface__std_out",
+          "sink_port_owner_name": "self",
+          "document": null
+        },
+        "implementation_PipelineExample__generated_905_933_ckGmgbXP_21": {
+          "src_port_name": "streamlet_PipelineExample_interface__std_in",
+          "src_port_owner_name": "self",
+          "sink_port_name": "streamlet_NonNegativeFilter_interface__std_in",
+          "sink_port_owner_name": "implementation_PipelineExample__filter",
+          "document": null
+        }
+      },
+      "implementation_instances": {
+        "implementation_PipelineExample__filter": {
+          "derived_implementation": "package_pack1__NonNegativeFilter",
+          "document": null
+        },
+        "implementation_PipelineExample__reducer": {
+          "derived_implementation": "package_pack1__Reducer",
+          "document": null
+        }
+      },
+      "document": null
+    },
+    "package_pack1__Reducer": {
+      "impl_type": "Normal",
+      "derived_streamlet": "package_pack1__Reducer_interface",
+      "nets": {},
+      "implementation_instances": {},
+      "document": null
     }
   }
 }

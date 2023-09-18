@@ -1,0 +1,758 @@
+{
+  "logic_types": {
+    "0830_66__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "1a6Y_40__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "1pHc_78__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "1s86_3__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "2Wa8_17__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "2tNk_43__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "4Eue_16__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "5PhQ_33__user_type_generated_0_28_ck6c11D2_39": {
+      "type": "Null"
+    },
+    "6Gi8_37__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "6vas_76__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "70TP_11__user_type_generated_0_28_ck6c11D2_39": {
+      "type": "Null"
+    },
+    "8NQs_79__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "ABp2_38__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "AR4i_36__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "AhS2_9__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "BWXZ_31__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "CPpI_60__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "Dnjv_74__generated_4045_4057_zPvqdCxy_12": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_bhoqk3AI_49"
+    },
+    "E4sf_5__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "Ehr7_53__user_type_generated_0_24_bhoqk3AI_49": {
+      "type": "Null"
+    },
+    "Fd8h_73__user_type_generated_0_28_ck6c11D2_39": {
+      "type": "Null"
+    },
+    "GL7j_52__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "H3dV_30__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "Hdcs_61__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "Hooy_54__generated_4318_4330_QqssBLXw_22": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_bhoqk3AI_49"
+    },
+    "Hsnj_57__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "I6K6_47__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "JB9R_21__generated_4085_4100_LgWiGxju_14": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_AGhy5isK_51"
+    },
+    "Je5a_10__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "L74F_77__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "LHup_56__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "M7dG_7__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "MDix_8__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "Mfgy_14__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "N35A_59__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "QH1K_28__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "RFSA_34__generated_4276_4292_ONRUMga1_20": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_28_ck6c11D2_39"
+    },
+    "SLHo_6__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "UBmU_80__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "UMWg_65__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "UOp6_63__generated_4004_4020_6QKM7reC_10": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_28_ck6c11D2_39"
+    },
+    "URIc_15__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "V9U8_45__generated_4234_4246_c5FtiRz4_18": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_bhoqk3AI_49"
+    },
+    "VAEe_41__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "WbBQ_18__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "XeJw_4__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "YTnE_83__generated_4085_4100_LgWiGxju_14": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_AGhy5isK_51"
+    },
+    "ZHYN_26__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "ZjIU_27__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "aJDR_12__generated_4045_4057_zPvqdCxy_12": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_bhoqk3AI_49"
+    },
+    "b3C1_39__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "dISS_22__user_type_generated_0_24_AGhy5isK_51": {
+      "type": "Null"
+    },
+    "dZ07_62__user_type_generated_0_24_bhoqk3AI_49": {
+      "type": "Null"
+    },
+    "deJG_25__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "enLa_84__user_type_generated_0_24_AGhy5isK_51": {
+      "type": "Null"
+    },
+    "gCfa_68__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "generated_0_24_AGhy5isK_51": {
+      "type": "Stream",
+      "value": {
+        "stream_type": {
+          "type": "Ref",
+          "value": "package_pack0__generated_0_8_iiIBdPmr_46"
+        },
+        "dimension": 1,
+        "user_type": {
+          "type": "Ref",
+          "value": "enLa_84__user_type_generated_0_24_AGhy5isK_51"
+        },
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+        "keep": false
+      }
+    },
+    "generated_0_24_bhoqk3AI_49": {
+      "type": "Stream",
+      "value": {
+        "stream_type": {
+          "type": "Ref",
+          "value": "package_pack0__Part"
+        },
+        "dimension": 1,
+        "user_type": {
+          "type": "Ref",
+          "value": "o0r1_82__user_type_generated_0_24_bhoqk3AI_49"
+        },
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+        "keep": false
+      }
+    },
+    "generated_0_24_iSpN8MLy_41": {
+      "type": "Stream",
+      "value": {
+        "stream_type": {
+          "type": "Ref",
+          "value": "package_pack0__generated_0_6_airZLRZf_44"
+        },
+        "dimension": 1,
+        "user_type": {
+          "type": "Ref",
+          "value": "v9K4_81__user_type_generated_0_24_iSpN8MLy_41"
+        },
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+        "keep": false
+      }
+    },
+    "generated_0_28_ck6c11D2_39": {
+      "type": "Stream",
+      "value": {
+        "stream_type": {
+          "type": "Ref",
+          "value": "package_pack0__LineItem"
+        },
+        "dimension": 1,
+        "user_type": {
+          "type": "Ref",
+          "value": "Fd8h_73__user_type_generated_0_28_ck6c11D2_39"
+        },
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+        "keep": false
+      }
+    },
+    "gp3h_50__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "hXqO_58__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "iyA6_1__generated_4004_4020_6QKM7reC_10": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_28_ck6c11D2_39"
+    },
+    "lOsD_23__generated_4193_4209_awQcieiS_16": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_28_ck6c11D2_39"
+    },
+    "lSJ1_67__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "logic_group_generated_1070_1387_JY5wxtBh_4__P_Brand": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_1070_1387_JY5wxtBh_4__P_Comment": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_1070_1387_JY5wxtBh_4__P_Container": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_1070_1387_JY5wxtBh_4__P_Mfgr": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_1070_1387_JY5wxtBh_4__P_Name": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_1070_1387_JY5wxtBh_4__P_PartKey": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_8_PyU5k9Lu_48"
+    },
+    "logic_group_generated_1070_1387_JY5wxtBh_4__P_RetailPrice": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_8_iiIBdPmr_46"
+    },
+    "logic_group_generated_1070_1387_JY5wxtBh_4__P_Size": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_8_PyU5k9Lu_48"
+    },
+    "logic_group_generated_1070_1387_JY5wxtBh_4__P_Type": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_Comment": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_CommitDate": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_Discount": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_8_iiIBdPmr_46"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_ExtendedPrice": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_8_iiIBdPmr_46"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_LineNumber": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_8_PyU5k9Lu_48"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_LineStatus": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_OrderKey": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_8_PyU5k9Lu_48"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_PartKey": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_8_PyU5k9Lu_48"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_Quantity": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_8_PyU5k9Lu_48"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_ReceiptDate": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_ReturnFlag": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_ShipDate": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_ShipInstruct": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_ShipMode": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_24_iSpN8MLy_41"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_SuppKey": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_8_PyU5k9Lu_48"
+    },
+    "logic_group_generated_3128_3812_EqsVG5p6_9__L_Tax": {
+      "type": "Ref",
+      "value": "package_pack0__generated_0_8_iiIBdPmr_46"
+    },
+    "nBHZ_69__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "nxHz_51__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "o0r1_82__user_type_generated_0_24_bhoqk3AI_49": {
+      "type": "Null"
+    },
+    "package_pack0__LineItem": {
+      "type": "Group",
+      "value": {
+        "elements": {
+          "L_Comment": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_Comment"
+          },
+          "L_CommitDate": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_CommitDate"
+          },
+          "L_Discount": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_Discount"
+          },
+          "L_ExtendedPrice": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_ExtendedPrice"
+          },
+          "L_LineNumber": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_LineNumber"
+          },
+          "L_LineStatus": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_LineStatus"
+          },
+          "L_OrderKey": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_OrderKey"
+          },
+          "L_PartKey": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_PartKey"
+          },
+          "L_Quantity": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_Quantity"
+          },
+          "L_ReceiptDate": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_ReceiptDate"
+          },
+          "L_ReturnFlag": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_ReturnFlag"
+          },
+          "L_ShipDate": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_ShipDate"
+          },
+          "L_ShipInstruct": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_ShipInstruct"
+          },
+          "L_ShipMode": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_ShipMode"
+          },
+          "L_SuppKey": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_SuppKey"
+          },
+          "L_Tax": {
+            "type": "Ref",
+            "value": "logic_group_generated_3128_3812_EqsVG5p6_9__L_Tax"
+          }
+        },
+        "document": null
+      }
+    },
+    "package_pack0__Part": {
+      "type": "Group",
+      "value": {
+        "elements": {
+          "P_Brand": {
+            "type": "Ref",
+            "value": "logic_group_generated_1070_1387_JY5wxtBh_4__P_Brand"
+          },
+          "P_Comment": {
+            "type": "Ref",
+            "value": "logic_group_generated_1070_1387_JY5wxtBh_4__P_Comment"
+          },
+          "P_Container": {
+            "type": "Ref",
+            "value": "logic_group_generated_1070_1387_JY5wxtBh_4__P_Container"
+          },
+          "P_Mfgr": {
+            "type": "Ref",
+            "value": "logic_group_generated_1070_1387_JY5wxtBh_4__P_Mfgr"
+          },
+          "P_Name": {
+            "type": "Ref",
+            "value": "logic_group_generated_1070_1387_JY5wxtBh_4__P_Name"
+          },
+          "P_PartKey": {
+            "type": "Ref",
+            "value": "logic_group_generated_1070_1387_JY5wxtBh_4__P_PartKey"
+          },
+          "P_RetailPrice": {
+            "type": "Ref",
+            "value": "logic_group_generated_1070_1387_JY5wxtBh_4__P_RetailPrice"
+          },
+          "P_Size": {
+            "type": "Ref",
+            "value": "logic_group_generated_1070_1387_JY5wxtBh_4__P_Size"
+          },
+          "P_Type": {
+            "type": "Ref",
+            "value": "logic_group_generated_1070_1387_JY5wxtBh_4__P_Type"
+          }
+        },
+        "document": null
+      }
+    },
+    "package_pack0__generated_0_24_AGhy5isK_51": {
+      "type": "Stream",
+      "value": {
+        "stream_type": {
+          "type": "Ref",
+          "value": "package_pack0__generated_0_8_iiIBdPmr_46"
+        },
+        "dimension": 1,
+        "user_type": {
+          "type": "Ref",
+          "value": "enLa_84__user_type_generated_0_24_AGhy5isK_51"
+        },
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+        "keep": false
+      }
+    },
+    "package_pack0__generated_0_24_bhoqk3AI_49": {
+      "type": "Stream",
+      "value": {
+        "stream_type": {
+          "type": "Ref",
+          "value": "package_pack0__Part"
+        },
+        "dimension": 1,
+        "user_type": {
+          "type": "Ref",
+          "value": "o0r1_82__user_type_generated_0_24_bhoqk3AI_49"
+        },
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+        "keep": false
+      }
+    },
+    "package_pack0__generated_0_24_iSpN8MLy_41": {
+      "type": "Stream",
+      "value": {
+        "stream_type": {
+          "type": "Ref",
+          "value": "package_pack0__generated_0_6_airZLRZf_44"
+        },
+        "dimension": 1,
+        "user_type": {
+          "type": "Ref",
+          "value": "v9K4_81__user_type_generated_0_24_iSpN8MLy_41"
+        },
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+        "keep": false
+      }
+    },
+    "package_pack0__generated_0_28_ck6c11D2_39": {
+      "type": "Stream",
+      "value": {
+        "stream_type": {
+          "type": "Ref",
+          "value": "package_pack0__LineItem"
+        },
+        "dimension": 1,
+        "user_type": {
+          "type": "Ref",
+          "value": "Fd8h_73__user_type_generated_0_28_ck6c11D2_39"
+        },
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+        "keep": false
+      }
+    },
+    "package_pack0__generated_0_6_airZLRZf_44": {
+      "type": "Bit",
+      "value": 8
+    },
+    "package_pack0__generated_0_8_PyU5k9Lu_48": {
+      "type": "Bit",
+      "value": 32
+    },
+    "package_pack0__generated_0_8_iiIBdPmr_46": {
+      "type": "Bit",
+      "value": 64
+    },
+    "q5xk_70__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "qjp4_49__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "r7Ak_72__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "rCP0_44__user_type_generated_0_28_ck6c11D2_39": {
+      "type": "Null"
+    },
+    "rv7R_29__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "soAY_20__user_type_generated_0_24_bhoqk3AI_49": {
+      "type": "Null"
+    },
+    "tKSy_19__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "uSZ9_48__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "uyoO_42__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "v9K4_81__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "zG8c_32__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    },
+    "zYSr_71__user_type_generated_0_24_iSpN8MLy_41": {
+      "type": "Null"
+    }
+  },
+  "streamlets": {
+    "package_pack0__Tphc19_Filter_interface": {
+      "ports": {
+        "streamlet_Tphc19_Filter_interface__lineItemsIn": {
+          "logic_type": {
+            "type": "Ref",
+            "value": "lOsD_23__generated_4193_4209_awQcieiS_16"
+          },
+          "direction": "In",
+          "document": null
+        },
+        "streamlet_Tphc19_Filter_interface__lineItemsOut": {
+          "logic_type": {
+            "type": "Ref",
+            "value": "RFSA_34__generated_4276_4292_ONRUMga1_20"
+          },
+          "direction": "In",
+          "document": null
+        },
+        "streamlet_Tphc19_Filter_interface__partsIn": {
+          "logic_type": {
+            "type": "Ref",
+            "value": "V9U8_45__generated_4234_4246_c5FtiRz4_18"
+          },
+          "direction": "In",
+          "document": null
+        },
+        "streamlet_Tphc19_Filter_interface__partsOut": {
+          "logic_type": {
+            "type": "Ref",
+            "value": "Hooy_54__generated_4318_4330_QqssBLXw_22"
+          },
+          "direction": "In",
+          "document": null
+        }
+      },
+      "document": null
+    },
+    "package_pack0__Tphc19_Top_interface": {
+      "ports": {
+        "streamlet_Tphc19_Top_interface__lineItemsIn": {
+          "logic_type": {
+            "type": "Ref",
+            "value": "UOp6_63__generated_4004_4020_6QKM7reC_10"
+          },
+          "direction": "In",
+          "document": null
+        },
+        "streamlet_Tphc19_Top_interface__partsIn": {
+          "logic_type": {
+            "type": "Ref",
+            "value": "Dnjv_74__generated_4045_4057_zPvqdCxy_12"
+          },
+          "direction": "In",
+          "document": null
+        },
+        "streamlet_Tphc19_Top_interface__revenueOut": {
+          "logic_type": {
+            "type": "Ref",
+            "value": "YTnE_83__generated_4085_4100_LgWiGxju_14"
+          },
+          "direction": "Out",
+          "document": null
+        }
+      },
+      "document": null
+    }
+  },
+  "implementations": {
+    "package_pack0__Tphc19_Filter": {
+      "impl_type": "Normal",
+      "derived_streamlet": "package_pack0__Tphc19_Filter_interface",
+      "nets": {},
+      "implementation_instances": {},
+      "document": null
+    },
+    "package_pack0__Tphc19_Reducer": {
+      "impl_type": "Normal",
+      "derived_streamlet": "package_pack0__Tphc19_Top_interface",
+      "nets": {},
+      "implementation_instances": {},
+      "document": null
+    },
+    "package_pack0__Tphc19_Top": {
+      "impl_type": "Normal",
+      "derived_streamlet": "package_pack0__Tphc19_Top_interface",
+      "nets": {
+        "implementation_Tphc19_Top__generated_4635_4673_tJPXCZeJ_24": {
+          "src_port_name": "streamlet_Tphc19_Top_interface__lineItemsIn",
+          "src_port_owner_name": "self",
+          "sink_port_name": "streamlet_Tphc19_Filter_interface__lineItemsIn",
+          "sink_port_owner_name": "implementation_Tphc19_Top__filter",
+          "document": null
+        },
+        "implementation_Tphc19_Top__generated_4687_4717_rlhP4D1B_27": {
+          "src_port_name": "streamlet_Tphc19_Top_interface__partsIn",
+          "src_port_owner_name": "self",
+          "sink_port_name": "streamlet_Tphc19_Filter_interface__partsIn",
+          "sink_port_owner_name": "implementation_Tphc19_Top__filter",
+          "document": null
+        },
+        "implementation_Tphc19_Top__generated_4731_4772_QOxmvpUx_30": {
+          "src_port_name": "streamlet_Tphc19_Filter_interface__lineItemsIn",
+          "src_port_owner_name": "implementation_Tphc19_Top__filter",
+          "sink_port_name": "streamlet_Tphc19_Top_interface__lineItemsIn",
+          "sink_port_owner_name": "implementation_Tphc19_Top__reducer",
+          "document": null
+        },
+        "implementation_Tphc19_Top__generated_4786_4819_GABzYxEd_33": {
+          "src_port_name": "streamlet_Tphc19_Filter_interface__partsIn",
+          "src_port_owner_name": "implementation_Tphc19_Top__filter",
+          "sink_port_name": "streamlet_Tphc19_Top_interface__partsIn",
+          "sink_port_owner_name": "implementation_Tphc19_Top__reducer",
+          "document": null
+        },
+        "implementation_Tphc19_Top__generated_4833_4870_7Xy7Gyx8_36": {
+          "src_port_name": "streamlet_Tphc19_Top_interface__revenueOut",
+          "src_port_owner_name": "implementation_Tphc19_Top__reducer",
+          "sink_port_name": "streamlet_Tphc19_Top_interface__revenueOut",
+          "sink_port_owner_name": "self",
+          "document": null
+        }
+      },
+      "implementation_instances": {
+        "implementation_Tphc19_Top__filter": {
+          "derived_implementation": "package_pack0__Tphc19_Filter",
+          "document": null
+        },
+        "implementation_Tphc19_Top__reducer": {
+          "derived_implementation": "package_pack0__Tphc19_Reducer",
+          "document": null
+        }
+      },
+      "document": null
+    }
+  }
+}

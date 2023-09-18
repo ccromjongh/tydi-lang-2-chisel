@@ -10,7 +10,7 @@ env = Environment(
 
 
 def get_json() -> dict:
-    with open("json_output.json", 'r') as f:
+    with open("tpch.json", 'r') as f:
         return loads(f.read())
 
 

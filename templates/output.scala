@@ -31,7 +31,7 @@ object MyTypes {
 class {{ streamlet.name | capitalize }} extends TydiModule {
   {%- for port in streamlet.ports.values() %}
     /** Stream of [[{{ port.name }}]] with {{ port.direction.name }} direction.{% if port.document %} {{ port.document | sentence }}{% endif %} */
-    val {{ port.name }}Stream = {{ port.logic_type.name | capitalize }}(){% if port.direction == Direction.input %}.flip{% endif %}
+    val {{ port.name }}Stream = {{ port.logic_type.name | capitalize }}(r={{(port.direction == Direction.input) | lower}})
     /** IO of [[{{ port.name }}Stream]] with {{ port.direction.name }} direction. */
     val {{ port.name }} = {{ port.name }}Stream.toPhysical
 
