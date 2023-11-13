@@ -149,14 +149,17 @@ def new_process(data: dict) -> dict:
             port['direction'] = Direction(port['direction'])
             port['sub_streams'] = find_child_streams(logic_type)
 
+    # First, name implementations and substitute references
     for (key, item) in implementations.items():
         set_name(item)
         item['derived_streamlet'] = streamlets[item['derived_streamlet']]
-        # Name ports and substitute references
+        # Name implementations and substitute references
         for name, instance in item['implementation_instances'].items():
             instance['name'] = name.split("__")[1]
             instance["impl"] = implementations[instance['derived_implementation']]
 
+    # Second, process the port connections. All references must be replaced by the above first or the process may fail.
+    for (key, item) in implementations.items():
         # Name ports and substitute references
         for name, connection in item['nets'].items():
             connection['src_owner'] = item if connection['src_port_owner_name'] == "self" else item['implementation_instances'][connection['src_port_owner_name']]
