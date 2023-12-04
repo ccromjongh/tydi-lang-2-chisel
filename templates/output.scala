@@ -46,7 +46,11 @@ class {{ streamlet.name | capitalize }} extends TydiModule {
 {%- for impl in implementations.values() %}
 {{ els.documentation(impl, "Implementation") }}
 class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capitalize }} {
-{%- if impl.implementation_instances %}
+{%- for port in impl.derived_streamlet.ports.values() %}
+    // Fixme: Remove the following line if this impl. contains logic. If it just interconnects, remove this comment.
+    {{ port.name }}Stream := DontCare
+{%- endfor %}
+{% if impl.implementation_instances %}
     // Modules
   {%- for inst in impl.implementation_instances.values() %}
     {% if inst.document %}/** {{ inst.document | sentence }} */
