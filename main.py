@@ -125,7 +125,8 @@ def new_process(data: dict) -> dict:
         if item['type'] in [LogicType.group, LogicType.union]:
             # Replace (double) reference for group and union elements by element, so we can work with the name and type.
             item['value']['elements'] = {name: logic_types[logic_types[el['value']]['value']]
-                                         for name, el in item['value']['elements'].items()}
+                                         for name, el in item['value']['elements'].items()
+                                         if logic_types[el['value']]['type'] == LogicType.ref}
 
         if item['type'] == LogicType.stream:
             # Replace reference for stream elements, so we can work with the name and type.
