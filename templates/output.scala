@@ -15,14 +15,14 @@ object MyTypes {
 }
 
 {% for type in logic_types.values() if type.unique -%}
-{% if type.type == LogicType.group %}
+{% if type.type == LogicType.bit %}
+{{ els.bit(type) }}
+{% elif type.type == LogicType.group %}
 {{ els.group(type, logic_types) }}
 {% elif type.type == LogicType.union %}
 {{ els.union(type, logic_types) }}
 {% elif type.type == LogicType.stream %}
 {{ els.stream(type.name, type, logic_types) }}
-{% elif type.type == LogicType.ref and logic_types[type.value].type == LogicType.stream %}
-{{ els.stream_ref(type, logic_types) }}
 {% endif -%}
 {% endfor %}
 

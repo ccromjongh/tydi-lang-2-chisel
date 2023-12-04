@@ -11,7 +11,7 @@
 {%- endmacro %}
 
 {% macro bit(type) -%}
-{{ documentation_short(type, "Bit(" + type.value  + ")") }}
+{{ documentation_short(type, "Bit(" + type.value | string + ")") }}
 class {{type.name | capitalize}} extends BitsEl({{type.value}}.W)
 {%- endmacro %}
 
