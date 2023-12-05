@@ -109,6 +109,12 @@ def new_process(data: dict) -> dict:
                 l = l + find_child_streams(el, new_path)
         return l
 
+    def solve_ref(data: dict, name: str) -> dict:
+        solve = data[name]
+        if solve['type'] == LogicType.ref:
+            return solve_ref(data, solve['value'])
+        return solve
+
     for (key, item) in logic_types.items():
         item['type'] = LogicType(item['type'])
         set_name(item)
@@ -124,7 +130,7 @@ def new_process(data: dict) -> dict:
 
         if item['type'] in [LogicType.group, LogicType.union]:
             # Replace (double) reference for group and union elements by element, so we can work with the name and type.
-            item['value']['elements'] = {name: logic_types[logic_types[el['value']]['value']]
+            item['value']['elements'] = {name: solve_ref(logic_types, el['value'])
                                          for name, el in item['value']['elements'].items()}
 
         if item['type'] == LogicType.stream:
