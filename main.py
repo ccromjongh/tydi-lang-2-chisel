@@ -205,13 +205,13 @@ if __name__ == '__main__':
     # logic_types = tydi_data['logic_types']
     # to_solve = list(logic_types.keys())[-1]
     # processed_data = pre_process(logic_types, to_solve, [])
-    template = env.get_template('output.scala')
     # to_template = {'logic_types': OrderedDict((item['name'], item)for item in processed_data), 'streams': [processed_data[-1]['name']]}
     env.globals['LogicType'] = LogicType
     env.globals['Direction'] = Direction
     env.filters['sentence'] = sentence_filter
     env.filters['capitalize'] = new_capitalize
     env.filters['snake2camel'] = snake2camel
+    template = env.get_template('output.scala')
     to_template = new_process(dict(tydi_data))
     output = template.render(to_template)
     print(output)
