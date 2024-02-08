@@ -1,5 +1,7 @@
 {% import 'elements.scala' as els -%}
-import tydi_lib._
+package some_tydi_project
+
+import nl.tudelft.tydi_chisel._
 import chisel3._
 
 object MyTypes {

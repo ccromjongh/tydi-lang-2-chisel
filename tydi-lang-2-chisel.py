@@ -1,16 +1,19 @@
+import argparse
+import sys
+import os
 from enum import Enum
-from json import loads, dumps
-from collections import OrderedDict
+from json import loads
+from pathlib import Path
 
 from jinja2 import Environment, PackageLoader, select_autoescape, FileSystemLoader
 env = Environment(
-    loader=FileSystemLoader('templates'),
+    loader=PackageLoader("tydi-lang-2-chisel"),
     autoescape=select_autoescape()
 )
 
 
-def get_json() -> dict:
-    with open("json_output.json", 'r') as f:
+def get_json(file: str | bytes | os.PathLike[str] | os.PathLike[bytes]) -> dict:
+    with open(file, 'r') as f:
         return loads(f.read())
 
 
@@ -200,21 +203,49 @@ def sentence_filter(value: str):
     return new_capitalize(value.strip().rstrip('.') + ".")
 
 
-if __name__ == '__main__':
-    tydi_data = get_json()
-    # logic_types = tydi_data['logic_types']
-    # to_solve = list(logic_types.keys())[-1]
-    # processed_data = pre_process(logic_types, to_solve, [])
-    # to_template = {'logic_types': OrderedDict((item['name'], item)for item in processed_data), 'streams': [processed_data[-1]['name']]}
+def main():
+    parser = argparse.ArgumentParser(description="Tydi-Lang-2-Chisel")
+    parser.add_argument("-i", "--input", action="append", type=str, nargs="?", help="Input file(s)")
+    parser.add_argument("-o", "--output_dir", type=str, help="Output directory")
+    args = parser.parse_args()
+
+    data = {}
+
+    if args.input:
+        first_path = Path(args.input[0])
+        # If only one directory is specified, search for all tydi-lang files in the directory.
+        if len(args.input) == 1 and first_path.is_dir():
+            input_files = first_path.glob('*.json')
+        # Get specified input files.
+        else:
+            input_files = [Path(file) for file in args.input]
+        for input_file in input_files:
+            # Put all input files in a dictionary with their name
+            data[input_file] = get_json(input_file)
+    elif not sys.stdin.isatty():
+        # Read from stdin
+        data["tydi-system"] = loads(sys.stdin.read())
+    else:
+        raise Exception("Please specify input files or pipe text to stdin")
+    output_dir = Path(args.output_dir)
+
     env.globals['LogicType'] = LogicType
     env.globals['Direction'] = Direction
     env.filters['sentence'] = sentence_filter
     env.filters['capitalize'] = new_capitalize
     env.filters['snake2camel'] = snake2camel
     template = env.get_template('output.scala')
-    to_template = new_process(dict(tydi_data))
-    output = template.render(to_template)
-    print(output)
-    with open('output.scala', 'w') as f:
-        f.write(output)
+
+    for input_file, tydi_data in data.items():
+        to_template = new_process(dict(tydi_data))
+        output = template.render(to_template)
+        # print(output)
+        output_file = output_dir.joinpath(f"{input_file.stem}.scala")
+        print(f"Saving output based on {input_file} to {output_file}")
+        with open(output_file, 'w') as f:
+            f.write(output)
+
+
+if __name__ == '__main__':
+    main()
     pass
