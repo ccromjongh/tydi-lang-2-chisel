@@ -6,9 +6,9 @@ In total, the process looks as follows:
 1. Create a Tydi-lang system description (`td` file) of the data-types, streams, interfaces (`streamlets`), and components (`impl`ementations).
 2. Compile the `td` file with `tydi-lang-complier -c .\tydi_project.toml` with configuration file specifying the `td` sources and top level implementation.
     1. Acquire the executable by cloning and compiling the project (e.g. `cargo build`).
-3. Generate Chisel code with 
+3. Generate Chisel code with e.g.
     ```shell
-    python tydi-lang-2-chisel.py -i output\json_IR.json -o output
+    python tydi-lang-2-chisel.py ./output ./td-json-output/json_IR.json
     ```
 4. Use the resulting Chisel code in your project.
 

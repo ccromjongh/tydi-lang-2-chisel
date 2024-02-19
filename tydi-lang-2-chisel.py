@@ -205,8 +205,8 @@ def sentence_filter(value: str):
 
 def main():
     parser = argparse.ArgumentParser(description="Tydi-Lang-2-Chisel")
-    parser.add_argument("-i", "--input", action="append", type=str, nargs="?", help="Input file(s)")
-    parser.add_argument("-o", "--output_dir", type=str, help="Output directory")
+    parser.add_argument("output_dir", type=str, help="Output directory")
+    parser.add_argument("input", type=str, nargs="*", help="Input file(s) or directory")
     args = parser.parse_args()
 
     data = {}
