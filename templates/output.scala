@@ -31,7 +31,7 @@ object MyTypes {
 
 {%- for streamlet in streamlets.values() %}
 {{ els.documentation(streamlet, "Streamlet") }}
-trait {{ streamlet.name | capitalize }} extends TydiModuleMixin {
+class {{ streamlet.name | capitalize }} extends TydiModule {
 {%- for port in streamlet.ports.values() %}
     /** Stream of [[{{ port.name }}]] with {{ port.direction.name }} direction.{% if port.document %} {{ port.document | sentence }}{% endif %} */
     val {{ port.name }}Stream = {{ port.logic_type.name | capitalize }}(){% if port.direction == Direction.input %}.flip{% endif %}
@@ -48,7 +48,7 @@ trait {{ streamlet.name | capitalize }} extends TydiModuleMixin {
 
 {% macro internal_impl(impl) -%}
 {{ els.documentation(impl, "Implementation") }}
-class {{ impl.name | capitalize }} extends Module with {{ impl.derived_streamlet.name | capitalize }} {
+class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capitalize }} {
 {%- for port in impl.derived_streamlet.ports.values() %}
     // Fixme: Remove the following line if this impl. contains logic. If it just interconnects, remove this comment.
     {{ port.name }}Stream := DontCare
@@ -76,8 +76,18 @@ class {{ impl.name | capitalize }} extends Module with {{ impl.derived_streamlet
 {%- endmacro %}
 
 {% macro external_impl(impl) -%}
-{{ els.documentation(impl, "Implementation") }}
-class {{ impl.name | capitalize }} extends ExtModule with {{ impl.derived_streamlet.name | capitalize }}
+{{ els.documentation(impl, "External implementation") }}
+class {{ impl.name | capitalize }} extends TydiExtModule {
+{%- for port in impl.derived_streamlet.ports.values() %}
+    /** IO of [[{{ port.logic_type.name | capitalize }}]] with {{ port.direction.name }} direction.{% if port.document %} {{ port.document | sentence }}{% endif %} */
+    val {{ port.name }} = IO({% if port.direction == Direction.input %}Flipped({% endif %}new {{ els.io_stream(port.logic_type.name, port.logic_type, logic_types) }}{% if port.direction == Direction.input %}){% endif %})
+
+    {%- for sub_port in port.sub_streams %}
+        /** IO of "{{sub_port.name}}" sub-stream of [[{{ port.name }}Stream]] with {{ port.direction.name }} direction. */
+        val {{ port.name }}{{ '_'.join(sub_port.path) }} = IO({% if port.direction == Direction.input %}Flipped({% endif %}new {{ els.io_stream(sub_port.logic_type.name, sub_port.logic_type, logic_types) }}{% if port.direction == Direction.input %}}({% endif %})
+    {%- endfor %}
+{% endfor -%}
+}
 {%- endmacro %}
 
 {%- for impl in implementations.values() %}

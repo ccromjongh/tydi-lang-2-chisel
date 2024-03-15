@@ -41,6 +41,10 @@ class {{type.name | capitalize}} extends Union({{ type.value.elements.keys() | l
 }
 {%- endmacro %}
 
+{% macro io_stream(name, type, types) -%}
+PhysicalStream(e=new {{type.value.stream_type.name | capitalize}}, n={{type.value.throughput | int}}, d={{type.value.dimension}}, c={{type.value.complexity}}, u={% if type.value.user_type.type == LogicType.null %}Null(){% else %}new {{type.value.user_type.name | capitalize}}{% endif %})
+{%- endmacro %}
+
 {% macro stream(name, type, types) -%}
 {{ documentation_short(type, "Stream") }}
 class {{ name | capitalize }} extends PhysicalStreamDetailed(e=new {{type.value.stream_type.name | capitalize}}, n={{type.value.throughput | int}}, d={{type.value.dimension}}, c={{type.value.complexity}}, r={{'true' if type.value.direction=='Reverse' else 'false'}}, u={% if type.value.user_type.type == LogicType.null %}Null(){% else %}new {{type.value.user_type.name | capitalize}}{% endif %})
