@@ -7,7 +7,7 @@ from pathlib import Path
 
 from jinja2 import Environment, PackageLoader, select_autoescape, FileSystemLoader
 env = Environment(
-    loader=PackageLoader("tydi-lang-2-chisel"),
+    loader=FileSystemLoader(Path(os.path.realpath(__file__)).parent.joinpath('templates')),
     autoescape=select_autoescape()
 )
 
