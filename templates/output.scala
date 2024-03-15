@@ -3,6 +3,7 @@ package some_tydi_project
 
 import nl.tudelft.tydi_chisel._
 import chisel3._
+import chisel3.experimental.ExtModule
 
 object MyTypes {
 {%- for type in logic_types.values() %}
@@ -30,7 +31,7 @@ object MyTypes {
 
 {%- for streamlet in streamlets.values() %}
 {{ els.documentation(streamlet, "Streamlet") }}
-class {{ streamlet.name | capitalize }} extends TydiModule {
+trait {{ streamlet.name | capitalize }} extends TydiModuleMixin {
 {%- for port in streamlet.ports.values() %}
     /** Stream of [[{{ port.name }}]] with {{ port.direction.name }} direction.{% if port.document %} {{ port.document | sentence }}{% endif %} */
     val {{ port.name }}Stream = {{ port.logic_type.name | capitalize }}(){% if port.direction == Direction.input %}.flip{% endif %}
@@ -45,9 +46,9 @@ class {{ streamlet.name | capitalize }} extends TydiModule {
 }
 {% endfor %}
 
-{%- for impl in implementations.values() %}
+{% macro internal_impl(impl) -%}
 {{ els.documentation(impl, "Implementation") }}
-class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capitalize }} {
+class {{ impl.name | capitalize }} extends Module with {{ impl.derived_streamlet.name | capitalize }} {
 {%- for port in impl.derived_streamlet.ports.values() %}
     // Fixme: Remove the following line if this impl. contains logic. If it just interconnects, remove this comment.
     {{ port.name }}Stream := DontCare
@@ -72,4 +73,17 @@ class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capi
   {%- endfor %}
 {% endif -%}
 }
+{%- endmacro %}
+
+{% macro external_impl(impl) -%}
+{{ els.documentation(impl, "Implementation") }}
+class {{ impl.name | capitalize }} extends ExtModule with {{ impl.derived_streamlet.name | capitalize }}
+{%- endmacro %}
+
+{%- for impl in implementations.values() %}
+{% if "External" in impl.attributes -%}
+    {{ external_impl(impl) }}
+{%- else -%}
+    {{ internal_impl(impl) }}
+{%- endif %}
 {% endfor %}
