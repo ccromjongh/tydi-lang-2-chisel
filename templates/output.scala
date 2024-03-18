@@ -90,8 +90,27 @@ class {{ impl.name | capitalize }} extends TydiExtModule {
 }
 {%- endmacro %}
 
+{% macro duplicator(impl) -%}
+{{ els.documentation(impl, "Duplicator implementation") }}
+class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capitalize }} {
+  {%- for port in impl.derived_streamlet.ports.values() %}
+    {{ port.name }}Stream := DontCare
+  {%- endfor %}
+    private val duplicator: StreamDuplicator = Module(new StreamDuplicator({{ impl.impl_type.TemplateInstance.instance_args["1"].Int }}, {{ (impl.derived_streamlet.ports.values()|first).name }}))
+{% for port in impl.derived_streamlet.ports.values() %}
+  {%- if port.direction == Direction.input %}
+    duplicator.in := {{ port.name }}
+  {%- else %}
+    {{ port.name }} := duplicator.out({{ loop.index0 }})
+  {%- endif %}
+{%- endfor %}
+}
+{%- endmacro %}
+
 {%- for impl in implementations.values() %}
-{% if "External" in impl.attributes -%}
+{% if impl.type == ImplType.duplicator -%}
+    {{ duplicator(impl) }}
+{% elif "External" in impl.attributes -%}
     {{ external_impl(impl) }}
 {%- else -%}
     {{ internal_impl(impl) }}

@@ -31,6 +31,13 @@ class Direction(Enum):
     output = 'Out'
 
 
+class ImplType(Enum):
+    normal = 'normal'
+    template_instance = 'TemplateInstance'
+    duplicator = 'duplicator'
+    voider = 'voider'
+
+
 def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
     item = data.get(solve)
     item_type = LogicType(item['type'])
@@ -167,6 +174,13 @@ def new_process(data: dict) -> dict:
             instance['name'] = name.split("__")[1]
             instance["impl"] = implementations[instance['derived_implementation']]
 
+        item['type'] = ImplType.normal if item['impl_type'] == "Normal" else ImplType.template_instance
+        if (item['type'] == ImplType.template_instance):
+            if item['impl_type']['TemplateInstance']['template_name'] == "duplicator_i":
+                item['type'] = ImplType.duplicator
+            elif item['impl_type']['TemplateInstance']['template_name'] == "voider_i":
+                item['type'] = ImplType.voider
+
     # Second, process the port connections. All references must be replaced by the above first or the process may fail.
     for (key, item) in implementations.items():
         # Name ports and substitute references
@@ -230,6 +244,7 @@ def main():
     output_dir = Path(args.output_dir)
 
     env.globals['LogicType'] = LogicType
+    env.globals['ImplType'] = ImplType
     env.globals['Direction'] = Direction
     env.filters['sentence'] = sentence_filter
     env.filters['capitalize'] = new_capitalize
