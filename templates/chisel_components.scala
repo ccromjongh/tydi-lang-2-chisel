@@ -22,7 +22,7 @@ class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capi
   {%- for inst in impl.implementation_instances.values() %}
     {% if inst.document %}/** {{ inst.document | sentence }} */
     {% endif -%}
-    val {{ inst.name }} = Module(new {{ inst.impl.name | capitalize }})
+    private val {{ inst.name }} = Module(new {{ inst.impl.name | capitalize }})
   {%- endfor %}
 {% endif %}
 {%- if impl.nets %}

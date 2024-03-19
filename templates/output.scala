@@ -11,7 +11,7 @@ object MyTypes {
     {%- if type.defined %}
     /** Bit({{type.value}}) type, defined in {{ type.package }} */
     {%- endif %}
-    def {{ type.name }} = UInt({{type.value}}.W)
+    def {{ type.name }}: UInt = UInt({{type.value}}.W)
     assert(this.{{ type.name }}.getWidth == {{type.value}})
 {% endif -%}
 {% endfor -%}
@@ -34,13 +34,13 @@ object MyTypes {
 class {{ streamlet.name | capitalize }} extends TydiModule {
 {%- for port in streamlet.ports.values() %}
     /** Stream of [[{{ port.name }}]] with {{ port.direction.name }} direction.{% if port.document %} {{ port.document | sentence }}{% endif %} */
-    val {{ port.name }}Stream = {{ port.logic_type.name | capitalize }}(){% if port.direction == Direction.input %}.flip{% endif %}
+    protected val {{ port.name }}Stream: PhysicalStreamDetailed[{{ port.logic_type.value.stream_type.name | capitalize }}, {% if port.logic_type.value.user_type.type == LogicType.null %}Null{% else %}{{port.logic_type.value.user_type.name | capitalize}}{% endif %}] = {{ port.logic_type.name | capitalize }}(){% if port.direction == Direction.input %}.flip{% endif %}
     /** IO of [[{{ port.name }}Stream]] with {{ port.direction.name }} direction. */
-    val {{ port.name }} = {{ port.name }}Stream.toPhysical
+    val {{ port.name }}: PhysicalStream = {{ port.name }}Stream.toPhysical
 
     {%- for sub_port in port.sub_streams %}
         /** IO of "{{sub_port.name}}" sub-stream of [[{{ port.name }}Stream]] with {{ port.direction.name }} direction. */
-        val {{ port.name }}_{{ sub_port.name }} = {{ port.name }}Stream.{{ '.'.join(sub_port.path) }}.toPhysical
+        val {{ port.name }}_{{ sub_port.name }}: PhysicalStream = {{ port.name }}Stream.{{ '.'.join(sub_port.path) }}.toPhysical
     {%- endfor %}
 {% endfor -%}
 }
@@ -58,7 +58,7 @@ class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capi
   {%- for inst in impl.implementation_instances.values() %}
     {% if inst.document %}/** {{ inst.document | sentence }} */
     {% endif -%}
-    val {{ inst.name }} = Module(new {{ inst.impl.name | capitalize }})
+    private val {{ inst.name }} = Module(new {{ inst.impl.name | capitalize }})
   {%- endfor %}
 {% endif %}
 {%- if impl.nets %}
@@ -80,7 +80,7 @@ class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capi
 class {{ impl.name | capitalize }} extends TydiExtModule {
 {%- for port in impl.derived_streamlet.ports.values() %}
     /** IO of [[{{ port.logic_type.name | capitalize }}]] with {{ port.direction.name }} direction.{% if port.document %} {{ port.document | sentence }}{% endif %} */
-    val {{ port.name }} = IO({% if port.direction == Direction.input %}Flipped({% endif %}new {{ els.io_stream(port.logic_type.name, port.logic_type, logic_types) }}{% if port.direction == Direction.input %}){% endif %})
+    val {{ port.name }}: PhysicalStream = IO({% if port.direction == Direction.input %}Flipped({% endif %}new {{ els.io_stream(port.logic_type.name, port.logic_type, logic_types) }}{% if port.direction == Direction.input %}){% endif %})
 
     {%- for sub_port in port.sub_streams %}
         /** IO of "{{sub_port.name}}" sub-stream of [[{{ port.name }}Stream]] with {{ port.direction.name }} direction. */
