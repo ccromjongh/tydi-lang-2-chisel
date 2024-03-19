@@ -113,6 +113,7 @@ def new_process(data: dict) -> dict:
                 if el['type'] == LogicType.stream:
                     connection = {
                         'name': name,
+                        'logic_type': stream,
                         'path': new_path
                     }
                     l.append(connection)

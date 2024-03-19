@@ -84,7 +84,7 @@ class {{ impl.name | capitalize }} extends TydiExtModule {
 
     {%- for sub_port in port.sub_streams %}
         /** IO of "{{sub_port.name}}" sub-stream of [[{{ port.name }}Stream]] with {{ port.direction.name }} direction. */
-        val {{ port.name }}{{ '_'.join(sub_port.path) }} = IO({% if port.direction == Direction.input %}Flipped({% endif %}new {{ els.io_stream(sub_port.logic_type.name, sub_port.logic_type, logic_types) }}{% if port.direction == Direction.input %}}({% endif %})
+        val {{ port.name }}_{{ sub_port.name }} = IO({% if port.direction == Direction.input %}Flipped({% endif %}new {{ els.io_stream(sub_port.name, sub_port.logic_type, logic_types) }}{% if port.direction == Direction.input %}){% endif %})
     {%- endfor %}
 {% endfor -%}
 }
