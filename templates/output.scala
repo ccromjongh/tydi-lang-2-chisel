@@ -1,5 +1,5 @@
 {% import 'elements.scala' as els -%}
-package some_tydi_project
+package {{ compile_options.package_of_top_level_implementation }}
 
 import nl.tudelft.tydi_chisel._
 import chisel3._
@@ -112,7 +112,8 @@ class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capi
     {{ duplicator(impl) }}
 {% elif "External" in impl.attributes -%}
     {{ external_impl(impl) }}
-{%- else -%}
+{%- elif impl.implementation_instances -%}
+    {#- This means an internal implementation that is not empty! -#}
     {{ internal_impl(impl) }}
 {%- endif %}
 {% endfor %}

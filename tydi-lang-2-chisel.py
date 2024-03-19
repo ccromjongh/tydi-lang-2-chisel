@@ -208,9 +208,17 @@ def new_capitalize(value: str):
     return value[:1].upper() + value[1:]
 
 
-def snake2camel(value: str):
+def new_lower(value: str):
+    return value[:1].lower() + value[1:]
+
+
+def snake2pascal(value: str):
     temp = value.split('_')
     return ''.join(el.title() for el in temp)
+
+
+def snake2camel(value: str):
+    return new_lower(snake2pascal(value))
 
 
 def sentence_filter(value: str):
@@ -248,17 +256,23 @@ def main():
     env.globals['Direction'] = Direction
     env.filters['sentence'] = sentence_filter
     env.filters['capitalize'] = new_capitalize
+    env.filters['snake2pascal'] = snake2pascal
     env.filters['snake2camel'] = snake2camel
-    template = env.get_template('output.scala')
+
+    output_files = {
+        "main": env.get_template('output.scala'),
+        "chisel_components": env.get_template('chisel_components.scala'),
+        "generation_stub": env.get_template('generation_stub.scala'),
+    }
 
     for input_file, tydi_data in data.items():
         to_template = new_process(dict(tydi_data))
-        output = template.render(to_template)
-        # print(output)
-        output_file = output_dir.joinpath(f"{input_file.stem}.scala")
-        print(f"Saving output based on {input_file} to {output_file}")
-        with open(output_file, 'w') as f:
-            f.write(output)
+        for name, template in output_files.items():
+            output = template.render(to_template, output_dir=output_dir)
+            output_file = output_dir.joinpath(f"{input_file.stem}_{name}.scala")
+            print(f"Saving output based on {input_file} to {output_file}")
+            with open(output_file, 'w') as f:
+                f.write(output)
 
 
 if __name__ == '__main__':
