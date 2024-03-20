@@ -31,6 +31,13 @@ class Direction(Enum):
     output = 'Out'
 
 
+class ImplType(Enum):
+    normal = 'normal'
+    template_instance = 'TemplateInstance'
+    duplicator = 'duplicator'
+    voider = 'voider'
+
+
 def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
     item = data.get(solve)
     item_type = LogicType(item['type'])
@@ -106,6 +113,7 @@ def new_process(data: dict) -> dict:
                 if el['type'] == LogicType.stream:
                     connection = {
                         'name': name,
+                        'logic_type': stream,
                         'path': new_path
                     }
                     l.append(connection)
@@ -167,6 +175,13 @@ def new_process(data: dict) -> dict:
             instance['name'] = name.split("__")[1]
             instance["impl"] = implementations[instance['derived_implementation']]
 
+        item['type'] = ImplType.normal if item['impl_type'] == "Normal" else ImplType.template_instance
+        if (item['type'] == ImplType.template_instance):
+            if item['impl_type']['TemplateInstance']['template_name'] == "duplicator_i":
+                item['type'] = ImplType.duplicator
+            elif item['impl_type']['TemplateInstance']['template_name'] == "voider_i":
+                item['type'] = ImplType.voider
+
     # Second, process the port connections. All references must be replaced by the above first or the process may fail.
     for (key, item) in implementations.items():
         # Name ports and substitute references
@@ -194,9 +209,17 @@ def new_capitalize(value: str):
     return value[:1].upper() + value[1:]
 
 
-def snake2camel(value: str):
+def new_lower(value: str):
+    return value[:1].lower() + value[1:]
+
+
+def snake2pascal(value: str):
     temp = value.split('_')
     return ''.join(el.title() for el in temp)
+
+
+def snake2camel(value: str):
+    return new_lower(snake2pascal(value))
 
 
 def sentence_filter(value: str):
@@ -207,6 +230,7 @@ def main():
     parser = argparse.ArgumentParser(description="Tydi-Lang-2-Chisel")
     parser.add_argument("output_dir", type=str, help="Output directory")
     parser.add_argument("input", type=str, nargs="*", help="Input file(s) or directory")
+    parser.add_argument("-e", "--external-only", action='store_true', help="If enabled, emit all implementations as external")
     args = parser.parse_args()
 
     data = {}
@@ -230,20 +254,27 @@ def main():
     output_dir = Path(args.output_dir)
 
     env.globals['LogicType'] = LogicType
+    env.globals['ImplType'] = ImplType
     env.globals['Direction'] = Direction
     env.filters['sentence'] = sentence_filter
     env.filters['capitalize'] = new_capitalize
+    env.filters['snake2pascal'] = snake2pascal
     env.filters['snake2camel'] = snake2camel
-    template = env.get_template('output.scala')
+
+    output_files = {
+        "main": env.get_template('output.scala'),
+        "chisel_components": env.get_template('chisel_components.scala'),
+        "generation_stub": env.get_template('generation_stub.scala'),
+    }
 
     for input_file, tydi_data in data.items():
         to_template = new_process(dict(tydi_data))
-        output = template.render(to_template)
-        # print(output)
-        output_file = output_dir.joinpath(f"{input_file.stem}.scala")
-        print(f"Saving output based on {input_file} to {output_file}")
-        with open(output_file, 'w') as f:
-            f.write(output)
+        for name, template in output_files.items():
+            output = template.render(to_template, output_dir=output_dir, external_only=args.external_only)
+            output_file = output_dir.joinpath(f"{input_file.stem}_{name}.scala")
+            print(f"Saving output based on {input_file} to {output_file}")
+            with open(output_file, 'w') as f:
+                f.write(output)
 
 
 if __name__ == '__main__':
