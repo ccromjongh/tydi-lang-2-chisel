@@ -110,7 +110,7 @@ class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capi
 {%- for impl in implementations.values() %}
 {% if impl.type == ImplType.duplicator -%}
     {{ duplicator(impl) }}
-{% elif "External" in impl.attributes -%}
+{% elif "External" in impl.attributes or (external_only and impl.implementation_instances|length == 0) -%}
     {{ external_impl(impl) }}
 {%- elif impl.implementation_instances -%}
     {#- This means an internal implementation that is not empty! -#}

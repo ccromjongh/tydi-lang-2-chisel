@@ -230,6 +230,7 @@ def main():
     parser = argparse.ArgumentParser(description="Tydi-Lang-2-Chisel")
     parser.add_argument("output_dir", type=str, help="Output directory")
     parser.add_argument("input", type=str, nargs="*", help="Input file(s) or directory")
+    parser.add_argument("-e", "--external-only", action='store_true', help="If enabled, emit all implementations as external")
     args = parser.parse_args()
 
     data = {}
@@ -269,7 +270,7 @@ def main():
     for input_file, tydi_data in data.items():
         to_template = new_process(dict(tydi_data))
         for name, template in output_files.items():
-            output = template.render(to_template, output_dir=output_dir)
+            output = template.render(to_template, output_dir=output_dir, external_only=args.external_only)
             output_file = output_dir.joinpath(f"{input_file.stem}_{name}.scala")
             print(f"Saving output based on {input_file} to {output_file}")
             with open(output_file, 'w') as f:
