@@ -1,4 +1,6 @@
 .idea/
 *.pyc
+dist
+*.egg-info
 
-output.scala
+./output.scala

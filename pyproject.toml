@@ -1,0 +1,23 @@
+[project]
+name = "tydi-lang-2-chisel"
+version = "0.0.1"
+authors = [
+  { name="Casper Cromjongh", email="C.Cromjongh@tudelft.nl" },
+]
+description = "Tydi-lang-2-Chisel is a transpiler that takes tydi-lang-2's json output of a Tydi-lang description and converts it to Chisel code that uses Tydi-Chisel."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "jinja2"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Code Generators",
+    "Development Status :: 4 - Beta",
+]
+
+[project.urls]
+Homepage = "https://github.com/ccromjongh/Tydi-lang-2-chisel"
+Issues = "https://github.com/ccromjongh/Tydi-lang-2-chisel/issues"
