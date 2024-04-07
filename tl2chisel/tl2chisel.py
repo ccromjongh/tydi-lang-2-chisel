@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import argparse
 import sys
 import os
@@ -227,7 +228,7 @@ def sentence_filter(value: str):
 
 
 def main():
-    parser = argparse.ArgumentParser(prog="python -m tydi_lang_2_chisel", description="Tydi-lang-2-Chisel")
+    parser = argparse.ArgumentParser(prog="python -m tl2chisel", description="Tydi-lang-2-Chisel")
     parser.add_argument("output_dir", type=str, help="Output directory")
     parser.add_argument("input", type=str, nargs="*", help="Input file(s) or directory")
     parser.add_argument("-e", "--external-only", action='store_true', help="If enabled, emit all implementations as external")

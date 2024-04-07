@@ -27,7 +27,7 @@ requires = ["flit_core<4"]
 build-backend = "flit_core.buildapi"
 
 [project.scripts]
-flit = "tydi_lang_2_chisel:main"
+flit = "tl2chisel:main"
 
 [tool.flit.module]
-name = "tydi_lang_2_chisel"
+name = "tl2chisel"
