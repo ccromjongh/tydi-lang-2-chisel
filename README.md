@@ -8,8 +8,8 @@ In total, the process looks as follows:
     1. Acquire the executable by cloning and compiling the project (e.g. `cargo build`).
 3. Generate Chisel code with e.g.
     ```shell
-    python tydi-lang-2-chisel.py ./output ./td-json-output/json_IR.json
+    python3 -m tydi_lang_2_chisel ./output ./td-json-output/json_IR.json
     ```
 4. Use the resulting Chisel code in your project.
 
-Check `python tydi-lang-2-chisel.py -h` to see options. Multiple input files can be specified. These are all processed individually. If no input file is specified, an `stdin` input is expected.
+Check `python3 -m tydi-lang-2-chisel -h` to see options. Multiple input files can be specified. These are all processed individually. If no input file is specified, an `stdin` input is expected.

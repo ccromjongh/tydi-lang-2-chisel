@@ -21,3 +21,13 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/ccromjongh/Tydi-lang-2-chisel"
 Issues = "https://github.com/ccromjongh/Tydi-lang-2-chisel/issues"
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
+
+[project.scripts]
+flit = "tydi_lang_2_chisel:main"
+
+[tool.flit.module]
+name = "tydi_lang_2_chisel"
