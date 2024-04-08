@@ -46,7 +46,7 @@ class {{ streamlet.name | capitalize }} extends TydiModule {
 }
 {% endfor %}
 
-{% macro internal_impl(impl) -%}
+{%- macro internal_impl(impl) -%}
 {{ els.documentation(impl, "Implementation") }}
 class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capitalize }} {
 {%- for port in impl.derived_streamlet.ports.values() %}
@@ -75,7 +75,7 @@ class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capi
 }
 {%- endmacro %}
 
-{% macro external_impl(impl) -%}
+{%- macro external_impl(impl) -%}
 {{ els.documentation(impl, "External implementation") }}
 class {{ impl.name | capitalize }} extends TydiExtModule {
 {%- for port in impl.derived_streamlet.ports.values() %}
@@ -90,7 +90,7 @@ class {{ impl.name | capitalize }} extends TydiExtModule {
 }
 {%- endmacro %}
 
-{% macro duplicator(impl) -%}
+{%- macro duplicator(impl) -%}
 {{ els.documentation(impl, "Duplicator implementation") }}
 class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capitalize }} {
   {%- for port in impl.derived_streamlet.ports.values() %}
@@ -110,9 +110,9 @@ class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capi
 {%- for impl in implementations.values() %}
 {% if impl.type == ImplType.duplicator -%}
     {{ duplicator(impl) }}
-{% elif "External" in impl.attributes or (external_only and impl.implementation_instances|length == 0) -%}
+{% elif "External" in impl.attributes or (external_only and (impl.implementation_instances|length == 0 and impl.nets|length == 0)) -%}
     {{ external_impl(impl) }}
-{%- elif impl.implementation_instances -%}
+{%- elif impl.implementation_instances|length > 0 or impl.nets|length > 0 -%}
     {#- This means an internal implementation that is not empty! -#}
     {{ internal_impl(impl) }}
 {%- endif %}
