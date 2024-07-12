@@ -12,6 +12,8 @@ env = Environment(
     autoescape=select_autoescape()
 )
 
+scope_types = ["package", "streamlet", "impl", "group", "union"]
+
 
 def get_json(file: str | bytes | os.PathLike[str] | os.PathLike[bytes]) -> dict:
     with open(file, 'r') as f:
@@ -59,7 +61,6 @@ def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
             item['defined'] = True
         else:
             item['defined'] = False
-        item['package'] = package
         item['name'] = name_parts[1].lstrip('_')
         item['type'] = item_type
         if item_type == LogicType.ref:
@@ -80,13 +81,12 @@ def new_process(data: dict) -> dict:
 
     def set_name(item):
         name_parts = key.split('__')
-        package = name_parts[0]
-        if package.startswith('package_'):
-            package = package[8:]
+        scope = name_parts[0]
+        item['scope_type'], item['scope_name'] = scope.split("_", 1)
+        if item['scope_type'] in scope_types:
             item['defined'] = True
         else:
             item['defined'] = False
-        item['package'] = package
         if len(name_parts) == 1:
             item['unique'] = False
             return
@@ -121,8 +121,19 @@ def new_process(data: dict) -> dict:
                 l = l + find_child_streams(el, new_path)
         return l
 
-    def solve_ref(data: dict, name: str) -> dict:
-        solve = data[name]
+    def solve_ref(data: dict, ref: dict) -> dict:
+        if ref['type'] != LogicType.ref and ref['type'] != 'Ref':
+            raise TypeError("Argument given is not a reference")
+
+        aliases = ref.get('alias', [])
+        solve = data[ref['value']]
+        # Get the possible aliases in a reference and save them in the list
+        local_aliases = solve.get('alias', [])
+        for alias in local_aliases:
+            if alias not in aliases:
+                aliases.append(alias)
+        # Save aliases to the source logic type
+        solve['alias'] = aliases
         if solve['type'] == LogicType.ref:
             return solve_ref(data, solve['value'])
         return solve
@@ -142,13 +153,15 @@ def new_process(data: dict) -> dict:
 
         if item['type'] in [LogicType.group, LogicType.union]:
             # Replace (double) reference for group and union elements by element, so we can work with the name and type.
-            item['value']['elements'] = {name: solve_ref(logic_types, el['value'])
+            item['value']['elements'] = {name: solve_ref(logic_types, el)
                                          for name, el in item['value']['elements'].items()}
 
         if item['type'] == LogicType.stream:
+            item['value']['stream_type']['type'] = LogicType.ref
+            item['value']['user_type']['type'] = LogicType.ref
             # Replace reference for stream elements, so we can work with the name and type.
-            item['value']['stream_type'] = logic_types[item['value']['stream_type']['value']]
-            item['value']['user_type'] = logic_types[item['value']['user_type']['value']]
+            item['value']['stream_type'] = solve_ref(logic_types, item['value']['stream_type'])
+            item['value']['user_type'] = solve_ref(logic_types, item['value']['user_type'])
 
         if type(item.get('value')) is dict:
             item['document'] = item['value'].get('document')
@@ -160,9 +173,8 @@ def new_process(data: dict) -> dict:
         for name, port in item['ports'].items():
             logic_type = port['logic_type']
             # Follow all references
-            while logic_type['type'] != LogicType.stream:
-                logic_type = logic_types[logic_type['value']]
-            port['logic_type'] = logic_type
+            logic_type['type'] = LogicType.ref
+            port['logic_type'] = solve_ref(logic_types, logic_type)
             port['name'] = filter_port_name(name.split('__')[1])
             port['direction'] = Direction(port['direction'])
             port['sub_streams'] = find_child_streams(logic_type)
@@ -202,6 +214,12 @@ def new_process(data: dict) -> dict:
             connection['data_type'] = data_type
             connection['sub_streams'] = sub_streams
             pass
+
+    # Set the name of logic items to the first alias that is encountered
+    for (key, item) in logic_types.items():
+        aliases = item.get("alias", [])
+        if len(aliases) > 0:
+            item['name'] = aliases[-1]
 
     return data
 
