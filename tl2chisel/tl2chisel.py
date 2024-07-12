@@ -41,38 +41,6 @@ class ImplType(Enum):
     voider = 'voider'
 
 
-def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
-    item = data.get(solve)
-    item_type = LogicType(item['type'])
-    if item_type == LogicType.ref:
-        refers_to = item['value']
-        l = pre_process(data, refers_to, l)
-    elif item_type == LogicType.group or item_type == LogicType.union:
-        for el in item['value']['elements'].values():
-            l = pre_process(data, el['value'], l)
-    elif item_type == LogicType.stream:
-        l = pre_process(data, item['value']['stream_type'], l)
-        l = pre_process(data, item['value']['user_type'], l)
-    if not item.get('included', False):
-        name_parts = solve.split('__')
-        package = name_parts[0]
-        if package.startswith('package_'):
-            package = package[8:]
-            item['defined'] = True
-        else:
-            item['defined'] = False
-        item['name'] = name_parts[1].lstrip('_')
-        item['type'] = item_type
-        if item_type == LogicType.ref:
-            item['value'] = data[item['value']]['name']
-        if item_type == LogicType.stream:
-            item['value']['stream_type'] = data[item['value']['stream_type']]['name']
-            item['value']['user_type'] = data[item['value']['user_type']]['name']
-        l.append(item)
-        item['included'] = True
-    return l
-
-
 def new_process(data: dict) -> dict:
     doubles_check = {}
     logic_types = data.get('logic_types', {})
