@@ -1,5 +1,5 @@
 {% import 'elements.scala' as els -%}
-package {{ compile_options.package_of_top_level_implementation }}
+package {{ compile_options.package_of_top_level_implementation | capitalize }}
 
 import nl.tudelft.tydi_chisel._
 import chisel3._
@@ -9,7 +9,7 @@ object MyTypes {
 {%- for type in logic_types.values() %}
 {%- if type.type == LogicType.bit %}
     {%- if type.defined %}
-    /** Bit({{type.value}}) type, defined in {{ type.package }} */
+    /** Bit({{type.value}}) type, defined in {{ type.scope_type }} [[{{ type.scope_name | capitalize }}]] */
     {%- endif %}
     def {{ type.name }}: UInt = UInt({{type.value}}.W)
     assert(this.{{ type.name }}.getWidth == {{type.value}})

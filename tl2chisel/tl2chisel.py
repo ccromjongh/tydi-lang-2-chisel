@@ -12,6 +12,8 @@ env = Environment(
     autoescape=select_autoescape()
 )
 
+scope_types = ["package", "streamlet", "impl", "group", "union"]
+
 
 def get_json(file: str | bytes | os.PathLike[str] | os.PathLike[bytes]) -> dict:
     with open(file, 'r') as f:
@@ -59,7 +61,6 @@ def pre_process(data: dict, solve: str, l: list[dict]) -> list[dict]:
             item['defined'] = True
         else:
             item['defined'] = False
-        item['package'] = package
         item['name'] = name_parts[1].lstrip('_')
         item['type'] = item_type
         if item_type == LogicType.ref:
@@ -80,13 +81,12 @@ def new_process(data: dict) -> dict:
 
     def set_name(item):
         name_parts = key.split('__')
-        package = name_parts[0]
-        if package.startswith('package_'):
-            package = package[8:]
+        scope = name_parts[0]
+        item['scope_type'], item['scope_name'] = scope.split("_", 1)
+        if item['scope_type'] in scope_types:
             item['defined'] = True
         else:
             item['defined'] = False
-        item['package'] = package
         if len(name_parts) == 1:
             item['unique'] = False
             return
