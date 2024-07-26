@@ -1,11 +1,11 @@
 {% macro documentation_short(item, name) -%}
-/**{% if item.defined %} {{ name }}, defined in {{ item.scope_type }} [[{{ item.scope_name | capitalize }}]].{% if item.document %}
+/**{% if item.defined %} {{ name }}, defined in {{ item.scope_type }} [[{{ item.scope_name }}]].{% if item.document %}
  * {% endif %}{% endif %}{% if item.document %}{{ item.document | sentence }}{% endif %} */
 {%- endmacro %}
 
 {% macro documentation(item, name) -%}
 /**{% if item.defined %}
- * {{ name }}, defined in {{ item.scope_type }} [[{{ item.scope_name | capitalize }}]].{% endif %}{% if item.document %}
+ * {{ name }}, defined in {{ item.scope_type }} [[{{ item.scope_name }}]].{% endif %}{% if item.document %}
  * {{ item.document | sentence }}{% endif %}
  */
 {%- endmacro %}
