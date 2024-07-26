@@ -47,8 +47,8 @@ def new_process(data: dict) -> dict:
     streamlets = data.get('streamlets', {})
     implementations = data.get('implementations', {})
 
-    def set_name(item):
-        name_parts = key.split('__')
+    def set_name(tag: str, item: dict):
+        name_parts = tag.split('__')
         scope = name_parts[0]
         item['scope_type'], item['scope_name'] = scope.split("_", 1)
         if item['scope_type'] in scope_types:
@@ -57,8 +57,9 @@ def new_process(data: dict) -> dict:
             item['defined'] = False
         if len(name_parts) == 1:
             item['unique'] = False
-            return
-        item['name'] = name_parts[1].lstrip('_')
+            item['name'] = tag
+        else:
+            item['name'] = name_parts[1].lstrip('_')
 
     def filter_port_name(name: str) -> str:
         """
@@ -108,12 +109,11 @@ def new_process(data: dict) -> dict:
 
     for (key, item) in logic_types.items():
         item['type'] = LogicType(item['type'])
-        set_name(item)
-        if not item.get('unique', True):
-            continue
+        set_name(key, item)
 
         check_name = f"{item['name']}.{item['type']}"
-        if not doubles_check.get(check_name, False):
+        # Do not add items that do not have a scope to the doubles check (set as non-unique in name setting)
+        if item.get('unique', True) and not doubles_check.get(check_name, False):
             doubles_check[check_name] = True
             item['unique'] = True
         else:
@@ -135,7 +135,7 @@ def new_process(data: dict) -> dict:
             item['document'] = item['value'].get('document')
 
     for (key, item) in streamlets.items():
-        set_name(item)
+        set_name(key, item)
 
         # Name ports and substitute references
         for name, port in item['ports'].items():
@@ -149,7 +149,7 @@ def new_process(data: dict) -> dict:
 
     # First, name implementations and substitute references
     for (key, item) in implementations.items():
-        set_name(item)
+        set_name(key, item)
         item['derived_streamlet'] = streamlets[item['derived_streamlet']]
         # Name implementations and substitute references
         for name, instance in item['implementation_instances'].items():
