@@ -12,7 +12,7 @@ env = Environment(
     autoescape=select_autoescape()
 )
 
-scope_types = ["package", "streamlet", "impl", "group", "union"]
+scope_types = ["package", "streamlet", "impl", "group", "union", "instance"]
 
 
 def get_json(file: str | bytes | os.PathLike[str] | os.PathLike[bytes]) -> dict:
@@ -188,6 +188,15 @@ def new_process(data: dict) -> dict:
         aliases = item.get("alias", [])
         if len(aliases) > 0:
             item['name'] = aliases[-1]
+            if item['scope_type'] == "instance":
+                item['name'] = f"{item['name']}_{item['scope_name']}"
+                # This gives the problem that the original references are not updated, and so the type info
+                # that is emitted for streams that represent the same but are duplicate is not correct.
+                if item.get('unique', True) and not doubles_check.get(item['name'], False):
+                    doubles_check[item['name']] = True
+                    item['unique'] = True
+                else:
+                    item['unique'] = False
 
     return data
 
