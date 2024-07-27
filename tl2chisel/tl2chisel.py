@@ -41,6 +41,45 @@ class ImplType(Enum):
     voider = 'voider'
 
 
+def stream_namer(stream: dict) -> str:
+    """
+    Generate a readable name for a stream based on its parameters that are non-default.\n
+    The name has a template of "stream_{data_type_name}_{user_type_name}_t{t}_s{s}_c{c}_d{d}", where everything after
+    `data_type_name` is optional and only used if not none or non-default.\n
+    Example: `stream_myGroup_t4_0_c8`
+
+    :param stream: Stream to generate name for
+    :return: A readable name for a stream based on its parameters that are non-default.
+    """
+    if stream['type'] != LogicType.stream and stream['type'] != 'Stream':
+        raise ValueError(f'Unexpected stream type: {stream["type"]}')
+
+    properties = stream['value']
+    defaults = {
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+    }
+    short_names = {
+        "throughput": "t",
+        "synchronicity": "s",
+        "complexity": "c",
+        "direction": "d"
+    }
+    data_type_name = properties['stream_type']['name']
+    user_type_name = properties['user_type']['name'] if properties['user_type']['type'] != LogicType.null else None
+    name = f"stream_{data_type_name}"
+    if user_type_name is not None:
+        name = f"{name}_{user_type_name}"
+
+    for prop, default in defaults.items():
+        if properties[prop] != default:
+            name = f"{name}_{short_names[prop]}{properties[prop]}"
+    name = name.replace('.', '_')
+    return name
+
+
 def new_process(data: dict) -> dict:
     doubles_check = {}
     logic_types = data.get('logic_types', {})
@@ -207,6 +246,13 @@ def new_process(data: dict) -> dict:
                 # This gives the problem that the original references are not updated, and so the type info
                 # that is emitted for streams that represent the same but are duplicate is not correct.
                 deduplicate(item['name'], item)
+
+    for (key, item) in logic_types.items():
+        if item['type'] == LogicType.stream:
+            auto_name = stream_namer(item)
+            if item['name'].startswith("generated"):
+                item['name'] = auto_name
+            deduplicate(auto_name, item)
 
     return data
 
