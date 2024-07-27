@@ -92,7 +92,7 @@ def new_process(data: dict) -> dict:
 
     def solve_ref(data: dict, ref: dict) -> dict:
         if ref['type'] != LogicType.ref and ref['type'] != 'Ref':
-            raise TypeError("Argument given is not a reference")
+            return ref
 
         aliases = ref.get('alias', [])
         solve = data[ref['value']]
@@ -107,17 +107,33 @@ def new_process(data: dict) -> dict:
             return solve_ref(data, solve['value'])
         return solve
 
+    def deduplicate(name: str, item: dict):
+        """
+        Checks if a logic type is already known by this `name`.
+        If this is the case, and it's a stream, substitute the stream and user types by the "unique" stream's values.
+        This way, they al reference the same types while not keeping track of _all_ the references to a stream.
+
+        :param name: String to check for duplicates
+        :param item: Item this name applies for
+        :return: If the item is unique or not
+        """
+        if item.get('unique', True) and not doubles_check.get(name, False):
+            doubles_check[name] = item
+            item['unique'] = True
+        else:
+            item['unique'] = False
+            if doubles_check.get(name, False) and item['type'] == LogicType.stream:
+                item['value']['stream_type'] = doubles_check[name]['value']['stream_type']
+                item['value']['user_type'] = doubles_check[name]['value']['user_type']
+        return item['unique']
+
     for (key, item) in logic_types.items():
         item['type'] = LogicType(item['type'])
         set_name(key, item)
 
         check_name = f"{item['name']}.{item['type']}"
         # Do not add items that do not have a scope to the doubles check (set as non-unique in name setting)
-        if item.get('unique', True) and not doubles_check.get(check_name, False):
-            doubles_check[check_name] = True
-            item['unique'] = True
-        else:
-            item['unique'] = False
+        deduplicate(check_name, item)
 
         if item['type'] in [LogicType.group, LogicType.union]:
             # Replace (double) reference for group and union elements by element, so we can work with the name and type.
@@ -125,8 +141,6 @@ def new_process(data: dict) -> dict:
                                          for name, el in item['value']['elements'].items()}
 
         if item['type'] == LogicType.stream:
-            item['value']['stream_type']['type'] = LogicType.ref
-            item['value']['user_type']['type'] = LogicType.ref
             # Replace reference for stream elements, so we can work with the name and type.
             item['value']['stream_type'] = solve_ref(logic_types, item['value']['stream_type'])
             item['value']['user_type'] = solve_ref(logic_types, item['value']['user_type'])
@@ -192,11 +206,7 @@ def new_process(data: dict) -> dict:
                 item['name'] = f"{item['name']}_{item['scope_name']}"
                 # This gives the problem that the original references are not updated, and so the type info
                 # that is emitted for streams that represent the same but are duplicate is not correct.
-                if item.get('unique', True) and not doubles_check.get(item['name'], False):
-                    doubles_check[item['name']] = True
-                    item['unique'] = True
-                else:
-                    item['unique'] = False
+                deduplicate(item['name'], item)
 
     return data
 
