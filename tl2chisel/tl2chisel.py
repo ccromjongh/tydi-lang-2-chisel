@@ -12,7 +12,7 @@ env = Environment(
     autoescape=select_autoescape()
 )
 
-scope_types = ["package", "streamlet", "impl", "group", "union"]
+scope_types = ["package", "streamlet", "impl", "group", "union", "instance"]
 
 
 def get_json(file: str | bytes | os.PathLike[str] | os.PathLike[bytes]) -> dict:
@@ -41,14 +41,53 @@ class ImplType(Enum):
     voider = 'voider'
 
 
-def new_process(data: dict) -> dict:
+def stream_namer(stream: dict) -> str:
+    """
+    Generate a readable name for a stream based on its parameters that are non-default.\n
+    The name has a template of "stream_{data_type_name}_{user_type_name}_t{t}_s{s}_c{c}_d{d}", where everything after
+    `data_type_name` is optional and only used if not none or non-default.\n
+    Example: `stream_myGroup_t4_0_c8`
+
+    :param stream: Stream to generate name for
+    :return: A readable name for a stream based on its parameters that are non-default.
+    """
+    if stream['type'] != LogicType.stream and stream['type'] != 'Stream':
+        raise ValueError(f'Unexpected stream type: {stream["type"]}')
+
+    properties = stream['value']
+    defaults = {
+        "throughput": 1.0,
+        "synchronicity": "Sync",
+        "complexity": 1,
+        "direction": "Forward",
+    }
+    short_names = {
+        "throughput": "t",
+        "synchronicity": "s",
+        "complexity": "c",
+        "direction": "d"
+    }
+    data_type_name = properties['stream_type']['name']
+    user_type_name = properties['user_type']['name'] if properties['user_type']['type'] != LogicType.null else None
+    name = f"stream_{data_type_name}"
+    if user_type_name is not None:
+        name = f"{name}_{user_type_name}"
+
+    for prop, default in defaults.items():
+        if properties[prop] != default:
+            name = f"{name}_{short_names[prop]}{properties[prop]}"
+    name = name.replace('.', '_')
+    return name
+
+
+def new_process(data: dict, auto_naming=True) -> dict:
     doubles_check = {}
     logic_types = data.get('logic_types', {})
     streamlets = data.get('streamlets', {})
     implementations = data.get('implementations', {})
 
-    def set_name(item):
-        name_parts = key.split('__')
+    def set_name(tag: str, item: dict):
+        name_parts = tag.split('__')
         scope = name_parts[0]
         item['scope_type'], item['scope_name'] = scope.split("_", 1)
         if item['scope_type'] in scope_types:
@@ -57,8 +96,9 @@ def new_process(data: dict) -> dict:
             item['defined'] = False
         if len(name_parts) == 1:
             item['unique'] = False
-            return
-        item['name'] = name_parts[1].lstrip('_')
+            item['name'] = tag
+        else:
+            item['name'] = name_parts[1].lstrip('_')
 
     def filter_port_name(name: str) -> str:
         """
@@ -91,7 +131,7 @@ def new_process(data: dict) -> dict:
 
     def solve_ref(data: dict, ref: dict) -> dict:
         if ref['type'] != LogicType.ref and ref['type'] != 'Ref':
-            raise TypeError("Argument given is not a reference")
+            return ref
 
         aliases = ref.get('alias', [])
         solve = data[ref['value']]
@@ -106,18 +146,33 @@ def new_process(data: dict) -> dict:
             return solve_ref(data, solve['value'])
         return solve
 
-    for (key, item) in logic_types.items():
-        item['type'] = LogicType(item['type'])
-        set_name(item)
-        if not item.get('unique', True):
-            continue
+    def deduplicate(name: str, item: dict):
+        """
+        Checks if a logic type is already known by this `name`.
+        If this is the case, and it's a stream, substitute the stream and user types by the "unique" stream's values.
+        This way, they al reference the same types while not keeping track of _all_ the references to a stream.
 
-        check_name = f"{item['name']}.{item['type']}"
-        if not doubles_check.get(check_name, False):
-            doubles_check[check_name] = True
+        :param name: String to check for duplicates
+        :param item: Item this name applies for
+        :return: If the item is unique or not
+        """
+        if item.get('unique', True) and not doubles_check.get(name, False):
+            doubles_check[name] = item
             item['unique'] = True
         else:
             item['unique'] = False
+            if doubles_check.get(name, False) and item['type'] == LogicType.stream:
+                item['value']['stream_type'] = doubles_check[name]['value']['stream_type']
+                item['value']['user_type'] = doubles_check[name]['value']['user_type']
+        return item['unique']
+
+    for (key, item) in logic_types.items():
+        item['type'] = LogicType(item['type'])
+        set_name(key, item)
+
+        check_name = f"{item['name']}.{item['type']}"
+        # Do not add items that do not have a scope to the doubles check (set as non-unique in name setting)
+        deduplicate(check_name, item)
 
         if item['type'] in [LogicType.group, LogicType.union]:
             # Replace (double) reference for group and union elements by element, so we can work with the name and type.
@@ -125,8 +180,6 @@ def new_process(data: dict) -> dict:
                                          for name, el in item['value']['elements'].items()}
 
         if item['type'] == LogicType.stream:
-            item['value']['stream_type']['type'] = LogicType.ref
-            item['value']['user_type']['type'] = LogicType.ref
             # Replace reference for stream elements, so we can work with the name and type.
             item['value']['stream_type'] = solve_ref(logic_types, item['value']['stream_type'])
             item['value']['user_type'] = solve_ref(logic_types, item['value']['user_type'])
@@ -135,7 +188,7 @@ def new_process(data: dict) -> dict:
             item['document'] = item['value'].get('document')
 
     for (key, item) in streamlets.items():
-        set_name(item)
+        set_name(key, item)
 
         # Name ports and substitute references
         for name, port in item['ports'].items():
@@ -149,7 +202,7 @@ def new_process(data: dict) -> dict:
 
     # First, name implementations and substitute references
     for (key, item) in implementations.items():
-        set_name(item)
+        set_name(key, item)
         item['derived_streamlet'] = streamlets[item['derived_streamlet']]
         # Name implementations and substitute references
         for name, instance in item['implementation_instances'].items():
@@ -188,6 +241,19 @@ def new_process(data: dict) -> dict:
         aliases = item.get("alias", [])
         if len(aliases) > 0:
             item['name'] = aliases[-1]
+            if item['scope_type'] == "instance":
+                item['name'] = f"{item['name']}_{item['scope_name']}"
+                # This gives the problem that the original references are not updated, and so the type info
+                # that is emitted for streams that represent the same but are duplicate is not correct.
+                deduplicate(item['name'], item)
+
+    if auto_naming:
+        for (key, item) in logic_types.items():
+            if item['type'] == LogicType.stream:
+                auto_name = stream_namer(item)
+                if item['name'].startswith("generated"):
+                    item['name'] = auto_name
+                deduplicate(auto_name, item)
 
     return data
 
@@ -218,6 +284,7 @@ def main():
     parser.add_argument("output_dir", type=str, help="Output directory")
     parser.add_argument("input", type=str, nargs="*", help="Input file(s) or directory")
     parser.add_argument("-e", "--external-only", action='store_true', help="If enabled, emit all implementations as external")
+    parser.add_argument("--no-auto-naming", action='store_true', help="If enabled, prevent auto naming of anonymous streams")
     args = parser.parse_args()
 
     data = {}
@@ -255,7 +322,7 @@ def main():
     }
 
     for input_file, tydi_data in data.items():
-        to_template = new_process(dict(tydi_data))
+        to_template = new_process(dict(tydi_data), not args.no_auto_naming)
         for name, template in output_files.items():
             output = template.render(to_template, output_dir=output_dir, external_only=args.external_only)
             output_file = output_dir.joinpath(f"{input_file.stem}_{name}.scala")
