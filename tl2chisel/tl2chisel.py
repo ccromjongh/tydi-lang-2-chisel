@@ -80,7 +80,7 @@ def stream_namer(stream: dict) -> str:
     return name
 
 
-def new_process(data: dict) -> dict:
+def new_process(data: dict, auto_naming=True) -> dict:
     doubles_check = {}
     logic_types = data.get('logic_types', {})
     streamlets = data.get('streamlets', {})
@@ -247,12 +247,13 @@ def new_process(data: dict) -> dict:
                 # that is emitted for streams that represent the same but are duplicate is not correct.
                 deduplicate(item['name'], item)
 
-    for (key, item) in logic_types.items():
-        if item['type'] == LogicType.stream:
-            auto_name = stream_namer(item)
-            if item['name'].startswith("generated"):
-                item['name'] = auto_name
-            deduplicate(auto_name, item)
+    if auto_naming:
+        for (key, item) in logic_types.items():
+            if item['type'] == LogicType.stream:
+                auto_name = stream_namer(item)
+                if item['name'].startswith("generated"):
+                    item['name'] = auto_name
+                deduplicate(auto_name, item)
 
     return data
 
@@ -283,6 +284,7 @@ def main():
     parser.add_argument("output_dir", type=str, help="Output directory")
     parser.add_argument("input", type=str, nargs="*", help="Input file(s) or directory")
     parser.add_argument("-e", "--external-only", action='store_true', help="If enabled, emit all implementations as external")
+    parser.add_argument("--no-auto-naming", action='store_true', help="If enabled, prevent auto naming of anonymous streams")
     args = parser.parse_args()
 
     data = {}
@@ -320,7 +322,7 @@ def main():
     }
 
     for input_file, tydi_data in data.items():
-        to_template = new_process(dict(tydi_data))
+        to_template = new_process(dict(tydi_data), not args.no_auto_naming)
         for name, template in output_files.items():
             output = template.render(to_template, output_dir=output_dir, external_only=args.external_only)
             output_file = output_dir.joinpath(f"{input_file.stem}_{name}.scala")
