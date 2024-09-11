@@ -12,10 +12,14 @@ import {{ compile_options.package_of_top_level_implementation }}.{{ compile_opti
 import chisel3._
 // _root_ disambiguates from package chisel3.util.circt if user imports chisel3.util._
 import _root_.circt.stage.ChiselStage
+import nl.tudelft.tydi_chisel._
 
 import java.io.{File, FileWriter}
 
 object {{ compile_options.package_of_top_level_implementation | snake2pascal }} extends App {
+  // Print stream compatibility issues as warnings. Can be removed once the system is fine-tuned.
+  nl.tudelft.tydi_chisel.setCompatCheckResult(CompatCheckResult.Warning)
+
   // Generate the Verilog output
   private val {{ compile_options.top_level_implementation | snake2camel }}Verilog: String = ChiselStage.emitSystemVerilog(new {{ compile_options.top_level_implementation | capitalize }})
 
