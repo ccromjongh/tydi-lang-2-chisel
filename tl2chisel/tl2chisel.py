@@ -159,7 +159,7 @@ def new_process(data: dict, auto_naming=True) -> dict:
         if item.get('unique', True) and not doubles_check.get(name, False):
             doubles_check[name] = item
             item['unique'] = True
-        else:
+        elif doubles_check.get(name, False) != item:
             item['unique'] = False
             if doubles_check.get(name, False) and item['type'] == LogicType.stream:
                 item['value']['stream_type'] = doubles_check[name]['value']['stream_type']
@@ -240,6 +240,7 @@ def new_process(data: dict, auto_naming=True) -> dict:
     for (key, item) in logic_types.items():
         aliases = item.get("alias", [])
         if len(aliases) > 0:
+            item['original_name'] = item['name']
             item['name'] = aliases[-1]
             if item['scope_type'] == "instance":
                 item['name'] = f"{item['name']}_{item['scope_name']}"
@@ -252,8 +253,9 @@ def new_process(data: dict, auto_naming=True) -> dict:
             if item['type'] == LogicType.stream:
                 auto_name = stream_namer(item)
                 if item['name'].startswith("generated"):
+                    item['original_name'] = item['name']
                     item['name'] = auto_name
-                deduplicate(auto_name, item)
+                deduplicate(item['name'], item)
 
     return data
 
