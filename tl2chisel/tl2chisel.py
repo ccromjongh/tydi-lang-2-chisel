@@ -59,13 +59,15 @@ def stream_namer(stream: dict) -> str:
         "throughput": 1.0,
         "synchronicity": "Sync",
         "complexity": 1,
+        "dimensionality": 1,
         "direction": "Forward",
     }
     short_names = {
         "throughput": "t",
         "synchronicity": "s",
         "complexity": "c",
-        "direction": "d"
+        "dimensionality": "d",
+        "direction": "r"
     }
     data_type_name = properties['stream_type']['name']
     user_type_name = properties['user_type']['name'] if properties['user_type']['type'] != LogicType.null else None
