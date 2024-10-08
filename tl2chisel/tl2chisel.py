@@ -89,6 +89,7 @@ def new_process(data: dict, auto_naming=True) -> dict:
     implementations = data.get('implementations', {})
 
     def set_name(tag: str, item: dict):
+        item['name'] = tag
         name_parts = tag.split('__')
         scope = name_parts[0]
         item['scope_type'], item['scope_name'] = scope.split("_", 1)
@@ -98,8 +99,7 @@ def new_process(data: dict, auto_naming=True) -> dict:
             item['defined'] = False
         if len(name_parts) == 1:
             item['unique'] = False
-            item['name'] = tag
-        else:
+        elif item['defined']:
             item['name'] = name_parts[1].lstrip('_')
 
     def filter_port_name(name: str) -> str:
@@ -172,8 +172,8 @@ def new_process(data: dict, auto_naming=True) -> dict:
         item['type'] = LogicType(item['type'])
         set_name(key, item)
 
+        # Remove all duplicate logic types from emission
         check_name = f"{item['name']}.{item['type']}"
-        # Do not add items that do not have a scope to the doubles check (set as non-unique in name setting)
         deduplicate(check_name, item)
 
         if item['type'] in [LogicType.group, LogicType.union]:
