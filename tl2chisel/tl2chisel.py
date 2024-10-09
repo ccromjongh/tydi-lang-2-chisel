@@ -59,14 +59,14 @@ def stream_namer(stream: dict) -> str:
         "throughput": 1.0,
         "synchronicity": "Sync",
         "complexity": 1,
-        "dimensionality": 1,
+        "dimension": 1,  # This should be called dimensionality for consistency but the TL output says dimension.
         "direction": "Forward",
     }
     short_names = {
         "throughput": "t",
         "synchronicity": "s",
         "complexity": "c",
-        "dimensionality": "d",
+        "dimension": "d",
         "direction": "r"
     }
     data_type_name = properties['stream_type']['name']
