@@ -28,7 +28,7 @@ class {{ impl.name | capitalize }} extends {{ impl.derived_streamlet.name | capi
 {%- if impl.nets %}
     // Connections
   {%- for con in impl.nets.values() %}
-    {% if con.document %}// {{ con.document | sentence }}
+    {% if con.document %}/* {{ con.document | sentence }} */
     {% endif -%}
     {% if con.sink_port_owner_name != "self" %}{{ con.sink_owner.name }}.{% endif %}{{ con.sink_port_name }} := {% if con.src_port_owner_name != "self" %}{{ con.src_owner.name }}.{% endif %}{{ con.src_port_name }}
     {%- for sub_con in con.sub_streams %}
