@@ -101,6 +101,10 @@ def new_process(data: dict, auto_naming=True) -> dict:
             item['unique'] = False
         elif item['defined']:
             item['name'] = name_parts[1].lstrip('_')
+        else:
+            # This prevents the possibility of names starting with a number, which is not allowed in any programming
+            # language I know. It is also used for detecting the need for auto naming.
+            item['name'] = "anonymous_" + tag
 
     def filter_port_name(name: str) -> str:
         """
@@ -254,7 +258,7 @@ def new_process(data: dict, auto_naming=True) -> dict:
         for (key, item) in logic_types.items():
             if item['type'] == LogicType.stream:
                 auto_name = stream_namer(item)
-                if item['name'].startswith("generated"):
+                if item['name'].startswith("generated") or item['name'].startswith("anonymous"):
                     item['original_name'] = item['name']
                     item['name'] = auto_name
                 deduplicate(item['name'], item)
