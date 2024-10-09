@@ -59,13 +59,15 @@ def stream_namer(stream: dict) -> str:
         "throughput": 1.0,
         "synchronicity": "Sync",
         "complexity": 1,
+        "dimensionality": 1,
         "direction": "Forward",
     }
     short_names = {
         "throughput": "t",
         "synchronicity": "s",
         "complexity": "c",
-        "direction": "d"
+        "dimensionality": "d",
+        "direction": "r"
     }
     data_type_name = properties['stream_type']['name']
     user_type_name = properties['user_type']['name'] if properties['user_type']['type'] != LogicType.null else None
@@ -87,6 +89,7 @@ def new_process(data: dict, auto_naming=True) -> dict:
     implementations = data.get('implementations', {})
 
     def set_name(tag: str, item: dict):
+        item['name'] = tag
         name_parts = tag.split('__')
         scope = name_parts[0]
         item['scope_type'], item['scope_name'] = scope.split("_", 1)
@@ -96,8 +99,7 @@ def new_process(data: dict, auto_naming=True) -> dict:
             item['defined'] = False
         if len(name_parts) == 1:
             item['unique'] = False
-            item['name'] = tag
-        else:
+        elif item['defined']:
             item['name'] = name_parts[1].lstrip('_')
 
     def filter_port_name(name: str) -> str:
@@ -159,7 +161,7 @@ def new_process(data: dict, auto_naming=True) -> dict:
         if item.get('unique', True) and not doubles_check.get(name, False):
             doubles_check[name] = item
             item['unique'] = True
-        else:
+        elif doubles_check.get(name, False) != item:
             item['unique'] = False
             if doubles_check.get(name, False) and item['type'] == LogicType.stream:
                 item['value']['stream_type'] = doubles_check[name]['value']['stream_type']
@@ -170,8 +172,8 @@ def new_process(data: dict, auto_naming=True) -> dict:
         item['type'] = LogicType(item['type'])
         set_name(key, item)
 
+        # Remove all duplicate logic types from emission
         check_name = f"{item['name']}.{item['type']}"
-        # Do not add items that do not have a scope to the doubles check (set as non-unique in name setting)
         deduplicate(check_name, item)
 
         if item['type'] in [LogicType.group, LogicType.union]:
@@ -240,6 +242,7 @@ def new_process(data: dict, auto_naming=True) -> dict:
     for (key, item) in logic_types.items():
         aliases = item.get("alias", [])
         if len(aliases) > 0:
+            item['original_name'] = item['name']
             item['name'] = aliases[-1]
             if item['scope_type'] == "instance":
                 item['name'] = f"{item['name']}_{item['scope_name']}"
@@ -252,8 +255,9 @@ def new_process(data: dict, auto_naming=True) -> dict:
             if item['type'] == LogicType.stream:
                 auto_name = stream_namer(item)
                 if item['name'].startswith("generated"):
+                    item['original_name'] = item['name']
                     item['name'] = auto_name
-                deduplicate(auto_name, item)
+                deduplicate(item['name'], item)
 
     return data
 
