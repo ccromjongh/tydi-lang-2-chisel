@@ -310,6 +310,7 @@ def main():
     else:
         raise Exception("Please specify input files or pipe text to stdin")
     output_dir = Path(args.output_dir)
+    os.makedirs(output_dir, exist_ok=True)
 
     env.globals['LogicType'] = LogicType
     env.globals['ImplType'] = ImplType
