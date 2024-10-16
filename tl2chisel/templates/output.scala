@@ -3,7 +3,6 @@ package {{ compile_options.package_of_top_level_implementation }}
 
 import nl.tudelft.tydi_chisel._
 import chisel3._
-import chisel3.experimental.ExtModule
 
 object MyTypes {
 {%- for type in logic_types.values() %}
